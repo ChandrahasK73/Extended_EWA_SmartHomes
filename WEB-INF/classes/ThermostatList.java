@@ -99,6 +99,9 @@ public class ThermostatList extends HttpServlet {
 			pw.print("<td><div id='shop_item'>");
 			pw.print("<h3>" + thermostat.getName() + "</h3>");
 			pw.print("<strong>" + thermostat.getPrice() + "$</strong><ul>");
+			pw.print("<strong>"+ "description: " + thermostat.getDescription() + "</strong><ul>");
+            pw.print("<strong>"+ "You get a " + thermostat.getWarranty() + "</strong><ul>");
+            pw.print("<strong>"+ "" + thermostat.getRebates() + "</strong><ul>");
 			pw.print("<li id='item'><img src='images/thermostats/"
 					+ thermostat.getImage() + "' alt='' /></li>");
 			pw.print("<li><form method='post' action='Cart'>" +

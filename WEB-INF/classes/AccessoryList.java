@@ -110,6 +110,9 @@ public class AccessoryList extends HttpServlet {
 				pw.print("<td><div id='shop_item'>");
 				pw.print("<h3>"+accessory.getName()+"</h3>");
 				pw.print("<strong>"+accessory.getPrice()+"$</strong><ul>");
+				pw.print("<strong>"+ "description: " + console.getDescription() + "</strong><ul>");
+				pw.print("<strong>"+ "You get a " + console.getWarranty() + "</strong><ul>");
+				pw.print("<strong>"+ "" + console.getRebates() + "</strong><ul>");
 				pw.print("<li id='item'><img src='images/accessories/"+accessory.getImage()+"' alt='' /></li>");
 				pw.print("<li><form method='post' action='Cart'>" +
 						"<input type='hidden' name='name' value='"+acc.getValue()+"'>"+

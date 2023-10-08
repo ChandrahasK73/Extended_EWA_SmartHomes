@@ -99,6 +99,9 @@ public class TabletList extends HttpServlet {
 			pw.print("<td><div id='shop_item'>");
 			pw.print("<h3>" + Tablet.getName() + "</h3>");
 			pw.print("<strong>" + Tablet.getPrice() + "$</strong><ul>");
+			pw.print("<strong>"+ "description: " + Tablet.getDescription() + "</strong><ul>");
+            pw.print("<strong>"+ "You get a " + Tablet.getWarranty() + "</strong><ul>");
+            pw.print("<strong>"+ "" + Tablet.getRebates() + "</strong><ul>");
 			pw.print("<li id='item'><img src='images/tablets/"
 					+ Tablet.getImage() + "' alt='' /></li>");
 			pw.print("<li><form method='post' action='Cart'>" +

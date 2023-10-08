@@ -98,6 +98,9 @@ public class GamesList extends HttpServlet {
 			pw.print("<td><div id='shop_item'>");
 			pw.print("<h3>"+game.getName()+"</h3>");
 			pw.print("<strong>"+ "$" + game.getPrice() + "</strong><ul>");
+			pw.print("<strong>"+ "description: " + game.getDescription() + "</strong><ul>");
+            pw.print("<strong>"+ "You get a " + game.getWarranty() + "</strong><ul>");
+            pw.print("<strong>"+ "" + game.getRebates() + "</strong><ul>");
 			pw.print("<li id='item'><img src='images/games/"+game.getImage()+"' alt='' /></li>");
 			pw.print("<li><form method='post' action='Cart'>" +
 					"<input type='hidden' name='name' value='"+entry.getKey()+"'>"+

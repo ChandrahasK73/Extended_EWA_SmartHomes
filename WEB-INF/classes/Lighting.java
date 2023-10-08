@@ -39,6 +39,19 @@ public class Lighting extends HttpServlet{
         this.warranty = warranty;
         this.rebates = rebates;
 	}
+
+	public Lighting(String name, double price, String image, String retailer,String condition,double discount,String description,String warranty,String rebates){
+		this.id=id;
+		this.name=name;
+		this.price=price;
+		this.image=image;
+		this.condition=condition;
+		this.discount = discount;
+		this.retailer = retailer;
+        this.description = description;
+        this.warranty = warranty;
+        this.rebates = rebates;
+	}
 	
 public Lighting(String name, double price, String image, String retailer,String condition,double discount){
 		this.name = name;
