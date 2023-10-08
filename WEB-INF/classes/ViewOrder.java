@@ -149,6 +149,13 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 								pw.print("<h4 style='color:red'>Your Order is Cancelled</h4>");								
 							}
 					}
+					for (OrderPayment oi : orderPayments.get(orderId)) 
+					{
+							if(oi.getOrderName().equals(orderName))
+							{
+								MySqlDataStoreUtilities.deleteTransaction(orderId,orderName);							
+							}
+					}
 				//remove all the orders from hashmap that exist in cancel list
 				orderPayments.get(orderId).removeAll(ListOrderPayment);
 				if(orderPayments.get(orderId).size()==0)

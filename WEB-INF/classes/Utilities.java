@@ -207,6 +207,12 @@ public class Utilities extends HttpServlet{
 		return getCustomerOrders().size();
 		return 0;
 	}
+
+	public void storeTransaction(String userId, String customerName, String userAddress, String creditCardNo, int orderId, String purchaseDate, String shipDate, 
+									String productId, String productType, int quantity, double orderPrice, double shippingCost, double discount, double totalSales, String storeId, String storeAddress){
+										MySqlDataStoreUtilities.insertTransactions(userId, customerName, userAddress, creditCardNo, orderId, purchaseDate, shipDate, 
+											 productId, productType, quantity, orderPrice, shippingCost, discount, totalSales, storeId, storeAddress);
+	}
 	
 	/* StoreProduct Function stores the Purchased product in Orders HashMap according to the User Names.*/
 
@@ -219,19 +225,31 @@ public class Utilities extends HttpServlet{
 		HashMap<String,Console> allconsoles = new HashMap<String,Console> ();
 			HashMap<String,Tablet> alltablets = new HashMap<String,Tablet> ();
 			HashMap<String,Game> allgames = new HashMap<String,Game> ();
+			HashMap<String,Lighting> allLightings = new HashMap<String,Lighting> ();
+			HashMap<String,Thermostat> allThermostats = new HashMap<String,Thermostat> ();
 			HashMap<String,Accessory> allaccessories=new HashMap<String,Accessory>();
 		if(type.equals("consoles")){
 			Console console;
 			try{
 			allconsoles = MySqlDataStoreUtilities.getConsoles();
-			
+			// System.out.println("Getting all the consoles that are stored:");
+			// for(String str: allconsoles.keySet()){
+			// 	System.out.println(str+": "+allconsoles.get(str).getRetailer());
+			//}
 			}
 			catch(Exception e){
 				
 			}
 			console = allconsoles.get(name);
+			//System.out.println("name: "+name);
+			try{
 			OrderItem orderitem = new OrderItem(console.getName(), console.getPrice(), console.getImage(), console.getRetailer());
 			orderItems.add(orderitem);
+			}
+			catch(Exception e){
+				e.printStackTrace();
+			}
+			
 		}
 		if(type.equals("games")){
 			Game game = null;
@@ -255,6 +273,30 @@ public class Utilities extends HttpServlet{
 			}
 			tablet = alltablets.get(name);
 			OrderItem orderitem = new OrderItem(tablet.getName(), tablet.getPrice(), tablet.getImage(), tablet.getRetailer());
+			orderItems.add(orderitem);
+		}
+		if(type.equals("lighting")){
+			Lighting lighting = null;
+			try{
+			allLightings = MySqlDataStoreUtilities.getLightings();
+			}
+			catch(Exception e){
+				
+			}
+			lighting = allLightings.get(name);
+			OrderItem orderitem = new OrderItem(lighting.getName(), lighting.getPrice(), lighting.getImage(), lighting.getRetailer());
+			orderItems.add(orderitem);
+		}
+		if(type.equals("thermostat")){
+			Thermostat thermostat = null;
+			try{
+			allThermostats = MySqlDataStoreUtilities.getThermostats();
+			}
+			catch(Exception e){
+				
+			}
+			thermostat = allThermostats.get(name);
+			OrderItem orderitem = new OrderItem(thermostat.getName(), thermostat.getPrice(), thermostat.getImage(), thermostat.getRetailer());
 			orderItems.add(orderitem);
 		}
 		if(type.equals("accessories")){	
@@ -312,41 +354,43 @@ public class Utilities extends HttpServlet{
 			System.out.println("inside exception file not written properly");
 		}	
 	}
-     public String storeReview(String productname,String producttype,String productmaker,String reviewrating,String reviewdate,String  reviewtext,String reatilerpin,String price,String city){
-	String message=MongoDBDataStoreUtilities.insertReview(productname,username(),producttype,productmaker,reviewrating,reviewdate,reviewtext,reatilerpin,price,city);
-		if(!message.equals("Successfull"))
-		{ return "UnSuccessfull";
-		}
-		else
-		{
-		HashMap<String, ArrayList<Review>> reviews= new HashMap<String, ArrayList<Review>>();
-		try
-		{
-			reviews=MongoDBDataStoreUtilities.selectReview();
-		}
-		catch(Exception e)
-		{
-			
-		}
-		if(reviews==null)
-		{
-			reviews = new HashMap<String, ArrayList<Review>>();
-		}
-			// if there exist product review already add it into same list for productname or create a new record with product name
-			
-		if(!reviews.containsKey(productname)){	
-			ArrayList<Review> arr = new ArrayList<Review>();
-			reviews.put(productname, arr);
-		}
-		ArrayList<Review> listReview = reviews.get(productname);		
-		Review review = new Review(productname,username(),producttype,productmaker,reviewrating,reviewdate,reviewtext,reatilerpin,price,city);
-		listReview.add(review);	
-			
-			// add Reviews into database
-		
-		return "Successfull";	
-		}
-	}
+    
+	public String storeReview(String productname,String producttype,String productprice,String productmaker,String productrebates,String reviewrating,String reviewdate,String reviewtext,String retailerpin,String retailercity,String retailerState,String storeId,String userId,String userAge,String userGender,String userOccupation,String productOnSale){
+        String message=MongoDBDataStoreUtilities.insertReview(productname,producttype,productprice,productmaker,productrebates,reviewrating,reviewdate,reviewtext,retailerpin,retailercity,retailerState,storeId,userId,userAge,userGender,userOccupation,productOnSale);
+        if(!message.equals("Successfull"))
+        { return "UnSuccessfull";
+        }
+        else
+        {
+        HashMap<String, ArrayList<Review>> reviews= new HashMap<String, ArrayList<Review>>();
+        try
+        {
+            reviews=MongoDBDataStoreUtilities.selectReview();
+        }
+        catch(Exception e)
+        {
+            
+        }
+        if(reviews==null)
+        {
+            reviews = new HashMap<String, ArrayList<Review>>();
+        }
+            // if there exist product review already add it into same list for productname or create a new record with product name
+            
+        if(!reviews.containsKey(productname)){  
+            ArrayList<Review> arr = new ArrayList<Review>();
+            reviews.put(productname, arr);
+        }
+        ArrayList<Review> listReview = reviews.get(productname);        
+        Review review = new Review(productname,producttype,productprice,productmaker,productrebates,productOnSale,userId,userAge,userGender,userOccupation,storeId,retailercity,retailerState,retailerpin,reviewrating,reviewdate,reviewtext);
+        listReview.add(review); 
+            
+            // add Reviews into database
+        
+        return "Successfull";   
+        }
+    }
+
 	
 	/* getConsoles Functions returns the Hashmap with all consoles in the store.*/
 
@@ -356,6 +400,23 @@ public class Utilities extends HttpServlet{
 			return hm;
 	}
 	
+
+	/* getLighting Functions returns the  Hashmap with all Games in the store.*/
+
+	public HashMap<String, Lighting> getLighting(){
+			HashMap<String, Lighting> hm = new HashMap<String, Lighting>();
+			hm.putAll(SaxParserDataStore.lightings);
+			return hm;
+	}
+
+	/* getThermostat Functions returns the  Hashmap with all Games in the store.*/
+
+	public HashMap<String, Thermostat> getThermostat(){
+			HashMap<String, Thermostat> hm = new HashMap<String, Thermostat>();
+			hm.putAll(SaxParserDataStore.thermostats);
+			return hm;
+	}
+
 	/* getGames Functions returns the  Hashmap with all Games in the store.*/
 
 	public HashMap<String, Game> getGames(){
@@ -402,6 +463,21 @@ public class Utilities extends HttpServlet{
 		return ar;
 	}
 	
+	public ArrayList<String> getProductsLighting(){		
+		ArrayList<String> ar = new ArrayList<String>();
+		for(Map.Entry<String, Lighting> entry : getLighting().entrySet()){
+			ar.add(entry.getValue().getName());
+		}
+		return ar;
+	}
+
+	public ArrayList<String> getProductsThermostat(){		
+		ArrayList<String> ar = new ArrayList<String>();
+		for(Map.Entry<String, Thermostat> entry : getThermostat().entrySet()){
+			ar.add(entry.getValue().getName());
+		}
+		return ar;
+	}
 	
 
 }

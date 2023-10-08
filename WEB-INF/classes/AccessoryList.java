@@ -47,11 +47,11 @@ public class AccessoryList extends HttpServlet {
 			
 		}
 		HashMap<String, Console> hm = new HashMap<String, Console>();
-			if(CategoryName.equals("microsoft"))
+			if(CategoryName.equals("Ring"))
 			{
 				for(Map.Entry<String,Console> entry : allconsoles.entrySet())
 				{	
-					if(entry.getValue().getRetailer().equals("Microsoft"))
+					if(entry.getValue().getRetailer().equals("Ring"))
 					{
 					 hm.put(entry.getValue().getId(),entry.getValue());
 					 
@@ -59,21 +59,21 @@ public class AccessoryList extends HttpServlet {
 				}
 				
 			}
-			else if(CategoryName.equals("sony"))
+			else if(CategoryName.equals("Nest"))
 			{	
 				for(Map.Entry<String,Console> entry : allconsoles.entrySet())
 				{	
-				  if(entry.getValue().getRetailer().equals("Sony"))
+				  if(entry.getValue().getRetailer().equals("Nest"))
 				 { 
 					hm.put(entry.getValue().getId(),entry.getValue());
 				 }
 				}
 			}
-			else if(CategoryName.equals("nintendo"))
+			else if(CategoryName.equals("Arlo"))
 			{
 				for(Map.Entry<String,Console> entry : allconsoles.entrySet())
 				{
-				  if(entry.getValue().getRetailer().equals("Nintendo"))
+				  if(entry.getValue().getRetailer().equals("Arlo"))
 				 {
 					 hm.put(entry.getValue().getId(),entry.getValue());
 				 }

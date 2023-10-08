@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/Game")
+@WebServlet("/Thermostat")
 
 /* 
 	Game class contains class variables name,price,image,retailer,condition,discount.
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 */
 
-public class Game extends HttpServlet{
+public class Thermostat extends HttpServlet{
 	private String id;
 	private String name;
 	private double price;
@@ -23,11 +23,11 @@ public class Game extends HttpServlet{
 	private String retailer;
 	private String condition;
 	private double discount;
-	private String description;
+    private String description;
     private String warranty;
     private String rebates;
 	
-	public Game(String id,String name, double price, String image, String retailer,String condition,double discount,String description,String warranty,String rebates){
+	public Thermostat(String id,String name, double price, String image, String retailer,String condition,double discount,String description,String warranty,String rebates){
 		this.id=id;
 		this.name=name;
 		this.price=price;
@@ -35,12 +35,12 @@ public class Game extends HttpServlet{
 		this.condition=condition;
 		this.discount = discount;
 		this.retailer = retailer;
-		this.description = description;
+        this.description = description;
         this.warranty = warranty;
         this.rebates = rebates;
 	}
 
-	public Game(String name, double price, String image, String retailer,String condition,double discount){
+    public Thermostat(String name, double price, String image, String retailer,String condition,double discount){
 		this.name=name;
 		this.price=price;
 		this.image=image;
@@ -49,7 +49,7 @@ public class Game extends HttpServlet{
 		this.retailer = retailer;
 	}
 	
-	public Game(){
+	public Thermostat(){
 		
 	}
 	public String getId() {
@@ -101,7 +101,7 @@ public class Game extends HttpServlet{
 		this.discount = discount;
 	}
 
-	public String getDescription() {
+    public String getDescription() {
 		return description;
 	}
 

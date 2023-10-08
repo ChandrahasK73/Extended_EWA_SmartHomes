@@ -23,7 +23,7 @@ public class AjaxUtility {
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/exampledatabase","root","root");							
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/exampledatabase1","root","root");							
 			message="Successfull";
 			return message;
 		}
