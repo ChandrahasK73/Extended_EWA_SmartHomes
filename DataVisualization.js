@@ -30,7 +30,7 @@ function createDataTable(jsonData) {
     //Create an array of product name and an array of zipcodes
     for(var i=0; i<parsedData.length; i++) {
         var productName = parsedData[i]["productName"];
-        var zipCode = parsedData[i]["retailerpin"];
+        var zipCode = parsedData[i]["retailerPin"];
         if(!productNameArr.includes(productName)) {
             productNameArr.push(productName);
         }
@@ -58,7 +58,7 @@ function createDataTable(jsonData) {
         dataArr[0] = zipCodeArr[i];
         for(var j=0; j<productNameArr.length; j++) {
             for(k=0; k<parsedData.length; k++) {
-                if(parsedData[k]["retailerpin"] === zipCodeArr[i] && parsedData[k]["productName"] === productNameArr[j]) {                    
+                if(parsedData[k]["retailerPin"] === zipCodeArr[i] && parsedData[k]["productName"] === productNameArr[j]) {                    
                     dataArr[j+1] = parseInt(parsedData[k]["reviewRating"]);                   
                 }                 
             }

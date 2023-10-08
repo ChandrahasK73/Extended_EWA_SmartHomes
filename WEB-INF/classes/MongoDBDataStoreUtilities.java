@@ -21,7 +21,7 @@ public class MongoDBDataStoreUtilities
     }
 
 
-    public static String insertReview(String productname,String producttype,String productprice,String productmaker,String productrebates,String reviewrating,String reviewdate,String reviewtext,String retailerpin,String retailercity,String retailerState,String storeId,String userId,String userAge,String userGender,String userOccupation,String productOnSale)
+    public static String insertReview(String productname,String producttype,String productPrice,String productmaker,String productrebates,String reviewrating,String reviewdate,String reviewtext,String retailerPin,String retailerCity,String retailerState,String storeId,String userId,String userAge,String userGender,String userOccupation,String productOnSale)
     {
         try
         {       
@@ -29,7 +29,7 @@ public class MongoDBDataStoreUtilities
             BasicDBObject doc = new BasicDBObject("title", "myReviews").
             append("productName", productname).
             append("productType", producttype).
-            append("productPrice",(int) Double.parseDouble(productprice)).
+            append("productPrice",(int) Double.parseDouble(productPrice)).
             append("productMaker", productmaker).
             append("productRebates", productrebates).
             append("productOnSale", productOnSale).
@@ -38,8 +38,8 @@ public class MongoDBDataStoreUtilities
             append("userGender", userGender).
             append("userOccupation", userOccupation).
             append("storeId", storeId).
-            append("retailerCity", retailercity).
-            append("retailerPin", retailerpin).
+            append("retailerCity", retailerCity).
+            append("retailerPin", retailerPin).
             append("retailerState", retailerState).
             append("reviewRating",Integer.parseInt(reviewrating)).
             append("reviewDate", reviewdate).
@@ -192,14 +192,14 @@ public class MongoDBDataStoreUtilities
 
             getConnection();
             Map<String, Object> dbObjIdMap = new HashMap<String, Object>();
-            dbObjIdMap.put("retailerpin", "$retailerpin");
+            dbObjIdMap.put("retailerPin", "$retailerPin");
             dbObjIdMap.put("productName", "$productName");
             DBObject groupFields = new BasicDBObject("_id", new BasicDBObject(dbObjIdMap));
             groupFields.put("count", new BasicDBObject("$sum", 1));
             DBObject group = new BasicDBObject("$group", groupFields);
 
             DBObject projectFields = new BasicDBObject("_id", 0);
-            projectFields.put("retailerpin", "$_id");
+            projectFields.put("retailerPin", "$_id");
             projectFields.put("productName", "$productName");
             projectFields.put("reviewCount", "$count");
             DBObject project = new BasicDBObject("$project", projectFields);
@@ -215,7 +215,7 @@ public class MongoDBDataStoreUtilities
 
             for (DBObject result : aggregate.results()) {
                 BasicDBObject obj = (BasicDBObject) result;
-                Object o = com.mongodb.util.JSON.parse(obj.getString("retailerpin"));
+                Object o = com.mongodb.util.JSON.parse(obj.getString("retailerPin"));
                 BasicDBObject dbObj = (BasicDBObject) o;
                 Review review = new Review(dbObj.getString("productName"),dbObj.getString("productType"),dbObj.getString("productPrice"),dbObj.getString("productMaker"),
                 dbObj.getString("productRebates"),dbObj.getString("productOnSale"),dbObj.getString("userId"),dbObj.getString("userAge"),dbObj.getString("userGender"),dbObj.getString("userOccupation"),dbObj.getString("storeId"),dbObj.getString("retailerCity"),dbObj.getString("retailerState"),dbObj.getString("retailerPin"),dbObj.getString("reviewRating"),dbObj.getString("reviewDate"),dbObj.getString("reviewText"));

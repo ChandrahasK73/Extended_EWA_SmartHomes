@@ -30,7 +30,7 @@ public class ProductModify extends HttpServlet {
 			
 			pw.print("<form method='get' action='ProductCrud'>"
 					+ "<table id='bestseller'><tr><td>"
-					+ "<h3>Product Type</h3></td><td><select name='producttype' class='input'><option value='consoles' selected>Console</option><option value='games'>Games</option><option value='tablets'>Tablet</option><option value='accessories'>Accessory</option></select>"
+					+ "<h3>Product Type</h3></td><td><select name='producttype' class='input'><option value='consoles' selected>Doorbells</option><option value='games'>Doorlocks</option><option value='tablets'>Speakers</option><option value='lightings'>Lighting</option><option value='thermostats'>Thermostats</option><option value='accessories'>Accessory</option></select>"
 					+ "</td></tr><tr><td>"
 					+"<h3>Product</h3></td><td><input type='text' name='product' placeholder='Please mention product if adding accessories' value='' class='input'></input>"
 					+ "</td></tr><tr><td>"
@@ -70,7 +70,7 @@ public class ProductModify extends HttpServlet {
 			
 			pw.print("<form method='get' action='ProductCrud'>"
 					+ "<table id='bestseller'><tr><td>"
-					+ "<h3>Product Type</h3></td><td><select name='producttype' class='input'><option value='consoles' selected>Console</option><option value='games'>Games</option><option value='tablets'>Tablet</option><option value='accessories'>Accessory</option></select>"
+					+ "<h3>Product Type</h3></td><td><select name='producttype' class='input'><option value='consoles' selected>Doorbells</option><option value='games'>Doorlocks</option><option value='tablets'>Speakers</option><option value='lightings'>Lighting</option><option value='thermostats'>Thermostats</option><option value='accessories'>Accessory</option></select>"
 					+ "</td></tr><tr><td>"
 					+ "<h3>Product Id</h3></td><td><input type='text' name='productId' value='' class='input' required></input>"
 					+ "</td></tr><tr><td>"

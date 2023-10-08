@@ -42,12 +42,15 @@ public class Payment extends HttpServlet {
 		String storeAddress=request.getParameter("storePickupAddress");
 		StringTokenizer st = new StringTokenizer(storeAddress, ",");
 		String storeId = st.nextToken();
+		String city = request.getParameter("city");
 		String state=request.getParameter("state");
 		String zipCode=request.getParameter("zipCode");
 		String country=request.getParameter("country");
 		String productId = request.getParameter("productId");
 		String prodType = MySqlDataStoreUtilities.mapOfProds.get(productId);
+		String shippingCharges = request.getParameter("shippingCharges");
 		int quantity = utility.CartCount();
+		double totalSales = 0;
 		//System.out.println("Product Id: "+productId);
 		if(session.getAttribute("usertype").equals("retailer")){
 			Customername =request.getParameter("customername");
@@ -96,7 +99,7 @@ public class Payment extends HttpServlet {
 			{
 				int orderId=utility.getOrderPaymentSize()+1;
 				//iterate through each order
-				double totalSales = 0;
+				
 				for (OrderItem oi : utility.getCustomerOrders())
 				{
 					totalSales += oi.getPrice();
@@ -109,8 +112,8 @@ public class Payment extends HttpServlet {
 
 					utility.storePayment(orderId,oi.getName(),oi.getPrice(),userAddress,creditCardNo,Customername);
 					try{
-						utility.storeTransaction(utility.username(),Customername,userAddress,creditCardNo,orderId,currentDates,twoWeeksLaterDate
-												,productId,prodType,quantity,oi.getPrice(),oi.getPrice()*0.1,10.0,totalSales,storeId,storeAddress);
+						utility.storeTransaction(utility.username(),utility.username(),userAddress,creditCardNo,orderId,currentDates,twoWeeksLaterDate
+												,oi.getName(),prodType,quantity,oi.getPrice(),oi.getPrice()*0.1,10.0,totalSales,storeId,storeAddress);
 					}
 					catch(Exception e){
 						
@@ -118,13 +121,55 @@ public class Payment extends HttpServlet {
 				}
 
 				//remove the order details from cart after processing
+				orderId=utility.getOrderPaymentSize()+1;
+				String addressOfProduct = userAddress+", "+city+", "+state+", "+zipCode+", "+country;
 					
-				OrdersHashMap.orders.remove(utility.username());
-					
-						pw.print("<h2>Your Order");
+					pw.print("<h4>Your Order");
 					pw.print("&nbsp&nbsp");  
-						pw.print("is stored ");
-					pw.print("<br>Your Order No is "+(orderId)+"</h2>");
+					pw.print("is stored ");
+					pw.print("<br>Your Order No is <b>"+(orderId)+"</b></h4>");
+					pw.print("<table class='gridtable'><tr><td>");
+					if(purchaseMode.equals("HomeDelivery")){
+						pw.print("Delivery Address</td><td>"+userAddress+", "+city+", "+state+", "+zipCode+", "+country+"</td></tr>");
+						pw.print("<tr><td>Shippin Charges</td><td>"+shippingCharges+"</td>");
+					}
+					else{
+						pw.print("Store Id</td><td>"+storeId+"</td></tr>");
+						pw.print("<tr><td>Store Address</td><td>"+st.nextToken()+"</td></tr>");
+						pw.print("<tr><td>Store City</td><td>"+st.nextToken()+"</td></tr>");
+						pw.print("<tr><td>Store State & zip</td><td>"+st.nextToken()+"</td></tr>");
+						//pw.print("<tr><td>Store Zip</td><td>"+st.nextToken()+"</td></tr>");
+					}
+					pw.print("<tr><td>user ID</td><td>"+utility.username()+"</td>");
+					pw.print("<tr><td>credit card number</td><td>"+creditCardNo+"</td>");
+					pw.print("<tr><td>order id</td><td>"+orderId+"</td>");
+					pw.print("<tr><td>purchase date</td><td>"+currentDates+"</td>");
+					if(purchaseMode.equals("HomeDelivery")){
+					pw.print("<tr><td>ship date<i>(Expected)</i></td><td>"+twoWeeksLaterDate+"</td>");
+					}
+					else{
+					pw.print("<tr><td>Store Pickup date<i>(Expected)</i></td><td>"+twoWeeksLaterDate+"</td>");
+
+					}
+					for (OrderItem oi : utility.getCustomerOrders())
+					{
+
+				
+					pw.print("<tr><td>Product Id</td><td>"+oi.getName()+"</td>");
+					pw.print("<tr><td>Product Price</td><td>"+oi.getPrice()+"</td>");
+					pw.print("<tr><td>Product Category</td><td>"+oi.getName()+"</td>");
+					
+					}
+					pw.print("<tr><td>Total sales</td><td>"+totalSales+"</td>");
+					
+					pw.print("</table>");
+					if(purchaseMode.equals("HomeDelivery") && !userAddress.isEmpty())
+						pw.print("<h4><br>Your Order is placed on "+(currentDates)+" and is home delivered to address: "+addressOfProduct+" by "+twoWeeksLaterDate);
+					else
+						pw.print("<br>Your Order is placed on "+(currentDates)+" and is ready to store pickup at address: "+addressOfProduct+" by "+twoWeeksLaterDate);
+					pw.print("<br>You can cancel the order latest by "+(fiveDaysLaterDate)+"<h4>");
+					pw.print("<br><h5>**Terms & Conditions Apply.</h5>");
+					OrdersHashMap.orders.remove(utility.username());
 			}else {pw.print("<h2>Customer does not exits</h2>");}		
 		}
 		else

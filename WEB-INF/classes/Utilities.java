@@ -57,7 +57,7 @@ public class Utilities extends HttpServlet{
 					result = result + "<li><a href='ProductModify?button=Addproduct'><span class='glyphicon'>Addproduct</span></a></li>"
 						+ "<li><a href='ProductModify?button=Updateproduct'><span class='glyphicon'>Updateproduct</span></a></li>"
 						+"<li><a href='ProductModify?button=Deleteproduct'><span class='glyphicon'>Deleteproduct</span></a></li>"
-						+"<li><a href='DataVisualization'><span class='glyphicon'>Trending</span></a></li>"
+						//+"<li><a href='DataVisualization'><span class='glyphicon'>Trending</span></a></li>"
 						+"<li><a href='DataAnalytics'><span class='glyphicon'>DataAnalytics</span></a></li>"
 						+ "<li><a><span class='glyphicon'>Hello,"+username+"</span></a></li>"
 						+ "<li><a href='Logout'><span class='glyphicon'>Logout</span></a></li>";
@@ -355,8 +355,8 @@ public class Utilities extends HttpServlet{
 		}	
 	}
     
-	public String storeReview(String productname,String producttype,String productprice,String productmaker,String productrebates,String reviewrating,String reviewdate,String reviewtext,String retailerpin,String retailercity,String retailerState,String storeId,String userId,String userAge,String userGender,String userOccupation,String productOnSale){
-        String message=MongoDBDataStoreUtilities.insertReview(productname,producttype,productprice,productmaker,productrebates,reviewrating,reviewdate,reviewtext,retailerpin,retailercity,retailerState,storeId,userId,userAge,userGender,userOccupation,productOnSale);
+	public String storeReview(String productname,String producttype,String productprice,String productmaker,String productrebates,String reviewrating,String reviewdate,String reviewtext,String retailerPin,String retailerCity,String retailerState,String storeId,String userId,String userAge,String userGender,String userOccupation,String productOnSale){
+        String message=MongoDBDataStoreUtilities.insertReview(productname,producttype,productprice,productmaker,productrebates,reviewrating,reviewdate,reviewtext,retailerPin,retailerCity,retailerState,storeId,userId,userAge,userGender,userOccupation,productOnSale);
         if(!message.equals("Successfull"))
         { return "UnSuccessfull";
         }
@@ -382,7 +382,7 @@ public class Utilities extends HttpServlet{
             reviews.put(productname, arr);
         }
         ArrayList<Review> listReview = reviews.get(productname);        
-        Review review = new Review(productname,producttype,productprice,productmaker,productrebates,productOnSale,userId,userAge,userGender,userOccupation,storeId,retailercity,retailerState,retailerpin,reviewrating,reviewdate,reviewtext);
+        Review review = new Review(productname,producttype,productprice,productmaker,productrebates,productOnSale,userId,userAge,userGender,userOccupation,storeId,retailerCity,retailerState,retailerPin,reviewrating,reviewdate,reviewtext);
         listReview.add(review); 
             
             // add Reviews into database
