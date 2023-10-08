@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Random;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import java.sql.*;
 
@@ -55,23 +59,74 @@ public class CheckOut extends HttpServlet {
 		for (OrderItem oi : utility.getCustomerOrders()) 
 		{
 			pw.print("<tr><td> Product Purchased:</td><td>");
-			pw.print(oi.getName()+"</td></tr><tr><td>");
+			pw.print(oi.getName()+"</td></tr>");
+			pw.print("<input type='hidden' name='productId' value='"+oi.getName()+"'>");
+        	//pw.print("</td></tr><td>");
 			pw.print("<input type='hidden' name='orderPrice' value='"+oi.getPrice()+"'>");
 			pw.print("<input type='hidden' name='orderName' value='"+oi.getName()+"'>");
-			pw.print("Product Price:</td><td>"+ oi.getPrice());
+			pw.print("<td>Product Price:</td><td>"+ oi.getPrice());
 			pw.print("</td></tr>");
 		}
 		pw.print("<tr><td>");
         pw.print("Total Order Cost</td><td>"+orderTotal);
 		pw.print("<input type='hidden' name='orderTotal' value='"+orderTotal+"'>");
+		pw.print("</tr></td>");
+		pw.print("<tr><td>");
+        pw.print("Shipping Charges(<i>Applied only for home deliveries</i>)</td><td>"+(Double.parseDouble(orderTotal))/10);
+		pw.print("<input type='hidden' name='shippingCharges' value='"+((Double.parseDouble(orderTotal))/10)+"'>");
 		pw.print("</td></tr></table><table><tr></tr><tr></tr>");	
 		pw.print("<tr><td>");
-     	pw.print("Credit/accountNo</td>");
+     	pw.print("Credit card no</td>");
 		pw.print("<td><input type='text' name='creditCardNo'>");
+		pw.print("</td></tr>");
+		pw.print("<tr><td>");
+		pw.print("Mode of purchase</td>");
+		pw.print("<td><input type='radio' name='purchaseMode' value='StorePickup' checked> Store Pickup");
+		pw.print("<input type='radio' name='purchaseMode' value='HomeDelivery'> Home Delivery");
+		pw.print("</td></tr>");
+
+		// Add IDs to the address fields for store pickup and home delivery
+		pw.print("<table><tr id= 'storePickupFields'><td>");
+		pw.print("Store Pickup Address:</td>");
+		pw.print("<td>");
+		pw.print("<select name='storePickupAddress'>");
+		pw.print("<option value='default'></option>");
+		pw.print("<option value='Walmart Supercenter, 1234 Elm Street, Springfield, IL 62701.'>Walmart Supercenter, 1234 Elm Street, Springfield, IL 62701.</option>");
+		pw.print("<option value='Best Buy Electronics, 567 Oak Avenue, San Francisco, IL 94101.'>Best Buy Electronics, 567 Oak Avenue, San Francisco, IL 94101.</option>");
+		pw.print("<option value='Target Store, 789 Maple Road, New York, IL 10001.'>Target Store, 789 Maple Road, New York, IL 10001.</option>");
+		pw.print("<option value='Home Depot, 32 Pine Street, Los Angeles, CA 90001.'>Home Depot, 32 Pine Street, Los Angeles, CA 90001.</option>");
+		pw.print("<option value='Costco Wholesale, 876 Birch Lane, Chicago, IL 60601.'>Costco Wholesale, 876 Birch Lane, Chicago, IL 60601.</option>");
+		pw.print("<option value='Lowe's Home Improvement, 345 Cedar Drive, Miami, FL 33101.'>Lowe's Home Improvement, 345 Cedar Drive, Miami, FL 33101.</option>");
+		pw.print("<option value='Macy's Department Store, 210 Oakwood Avenue, Atlanta, GA 30301.'>Macy's Department Store, 210 Oakwood Avenue, Atlanta, GA 30301.</option>");
+		pw.print("<option value='CVS Pharmacy, 654 Maplewood Drive, Dallas, TX 75201.'>CVS Pharmacy, 654 Maplewood Drive, Dallas, TX 75201.</option>");
+		pw.print("<option value='Barnes & Noble Booksellers, 789 Walnut Street, Seattle, WA 98101.'>Barnes & Noble Booksellers, 789 Walnut Street, Seattle, WA 98101.</option>");
+		pw.print("<option value='Bed Bath & Beyond, 987 Cherry Lane, Boston, MA 02101.'>Bed Bath & Beyond, 987 Cherry Lane, Boston, MA 02101.</option>");
+		pw.print("</select>");
+		pw.print("</td></tr>");
+
+		pw.print("<tr id='homeDeliveryFields'><td>"); // Assign an ID for home delivery fields
+		pw.print("Home Delivery Address:</td>");
+		pw.print("<td><input type='text' name='homeDeliveryAddress'>");
 		pw.print("</td></tr>");
 		pw.print("<tr><td>");
 	    pw.print("Customer Address</td>");
 		pw.print("<td><input type='text' name='userAddress'>");
+        pw.print("</td></tr>");
+		pw.print("<tr><td>");
+	    pw.print("State</td>");
+		pw.print("<td><input type='text' name='state'>");
+        pw.print("</td></tr>");
+		pw.print("<tr><td>");
+	    pw.print("Country</td>");
+		pw.print("<td><select name='country'>");
+		pw.print("<option value='United States'>United States</option>");
+		pw.print("<option value='Canada'>Canada</option>");
+		pw.print("<option value='Mexico'>Mexico</option>");
+		pw.print("</select>");
+        pw.print("</td></tr>");
+		pw.print("<tr><td>");
+	    pw.print("ZipCode</td>");
+		pw.print("<td><input type='text' name='zipCode'>");
         pw.print("</td></tr>");
 		if(session.getAttribute("usertype").equals("retailer"))
 		{
@@ -88,7 +143,7 @@ public class CheckOut extends HttpServlet {
 	    }
         catch(Exception e)
 		{
-         
+         System.out.println(e.getMessage());
 		}  			
 		}
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 

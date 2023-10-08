@@ -9,6 +9,10 @@ import javax.servlet.http.HttpSession;
 import java.util.Random;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.StringTokenizer;
 
 @WebServlet("/Payment")
 
@@ -34,6 +38,17 @@ public class Payment extends HttpServlet {
 
 		String userAddress=request.getParameter("userAddress");
 		String creditCardNo=request.getParameter("creditCardNo");
+		String purchaseMode = request.getParameter("purchaseMode");
+		String storeAddress=request.getParameter("storePickupAddress");
+		StringTokenizer st = new StringTokenizer(storeAddress, ",");
+		String storeId = st.nextToken();
+		String state=request.getParameter("state");
+		String zipCode=request.getParameter("zipCode");
+		String country=request.getParameter("country");
+		String productId = request.getParameter("productId");
+		String prodType = MySqlDataStoreUtilities.mapOfProds.get(productId);
+		int quantity = utility.CartCount();
+		//System.out.println("Product Id: "+productId);
 		if(session.getAttribute("usertype").equals("retailer")){
 			Customername =request.getParameter("customername");
 			try{
@@ -51,6 +66,22 @@ public class Payment extends HttpServlet {
 				
 			}
 		}
+		//Date of 5 days later
+			Calendar calendar = Calendar.getInstance();
+			Date currentDate = calendar.getTime();
+
+			// Add five days to the current date
+			calendar.add(Calendar.DAY_OF_MONTH, 5);
+			Date fiveDaysLater = calendar.getTime();
+
+			calendar.add(Calendar.DAY_OF_MONTH, 9);
+			Date twoWeeksLater = calendar.getTime();
+
+			// Format the dates for display
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			String currentDates = dateFormat.format(currentDate);
+			String fiveDaysLaterDate = dateFormat.format(fiveDaysLater);
+			String twoWeeksLaterDate = dateFormat.format(twoWeeksLater);
 
 		utility.printHtml("Header.html");
 		utility.printHtml("LeftNavigationBar.html");
@@ -65,6 +96,11 @@ public class Payment extends HttpServlet {
 			{
 				int orderId=utility.getOrderPaymentSize()+1;
 				//iterate through each order
+				double totalSales = 0;
+				for (OrderItem oi : utility.getCustomerOrders())
+				{
+					totalSales += oi.getPrice();
+				}
 
 				for (OrderItem oi : utility.getCustomerOrders())
 				{
@@ -72,7 +108,13 @@ public class Payment extends HttpServlet {
 					//set the parameter for each column and execute the prepared statement
 
 					utility.storePayment(orderId,oi.getName(),oi.getPrice(),userAddress,creditCardNo,Customername);
-				
+					try{
+						utility.storeTransaction(utility.username(),Customername,userAddress,creditCardNo,orderId,currentDates,twoWeeksLaterDate
+												,productId,prodType,quantity,oi.getPrice(),oi.getPrice()*0.1,10.0,totalSales,storeId,storeAddress);
+					}
+					catch(Exception e){
+						
+					}
 				}
 
 				//remove the order details from cart after processing

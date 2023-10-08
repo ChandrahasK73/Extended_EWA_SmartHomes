@@ -15,7 +15,7 @@ import java.io.*;
 
 public class User implements Serializable{
 	private int id;
-	private String name;
+	public String name;
 	private String password;
 	private String usertype;
 	

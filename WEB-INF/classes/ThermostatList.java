@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/TabletList")
+@WebServlet("/ThermostatList")
 
-public class TabletList extends HttpServlet {
+public class ThermostatList extends HttpServlet {
 
 	/* Trending Page Displays all the Tablets and their Information in Game Speed */
 
@@ -18,12 +18,12 @@ public class TabletList extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		PrintWriter pw = response.getWriter();
-		HashMap<String,Tablet> alltablets = new HashMap<String,Tablet> ();
+		HashMap<String,Thermostat> allThermostats = new HashMap<String,Thermostat> ();
 
 
 		
 		try{
-		     alltablets = MySqlDataStoreUtilities.getTablets();
+		     allThermostats = MySqlDataStoreUtilities.getThermostats();
 		}
 		catch(Exception e)
 		{
@@ -34,53 +34,53 @@ public class TabletList extends HttpServlet {
 
 		String name = null;
 		String CategoryName = request.getParameter("maker");
-		HashMap<String, Tablet> hm = new HashMap<String, Tablet>();
+		HashMap<String, Thermostat> hm = new HashMap<String, Thermostat>();
 
 		if (CategoryName == null)	
 		{
-			hm.putAll(alltablets);
+			hm.putAll(allThermostats);
 			name = "";
 		} 
 		else 
 		{
-			if(CategoryName.equals("Bose")) 
+			if(CategoryName.equals("Trane")) 
 			{	
-				for(Map.Entry<String,Tablet> entry : alltablets.entrySet())
+				for(Map.Entry<String,Thermostat> entry : allThermostats.entrySet())
 				{
-				  if(entry.getValue().getRetailer().equals("Bose"))
+				  if(entry.getValue().getRetailer().equals("Trane"))
 				  {
 					 hm.put(entry.getValue().getId(),entry.getValue());
 				  }
 				}
-				name ="Bose";
+				name ="Trane";
 			} 
-			else if (CategoryName.equals("Sonos"))
+			else if (CategoryName.equals("Sensi"))
 			{
-				for(Map.Entry<String,Tablet> entry : alltablets.entrySet())
+				for(Map.Entry<String,Thermostat> entry : allThermostats.entrySet())
 				{
-				  if(entry.getValue().getRetailer().equals("Sonos"))
+				  if(entry.getValue().getRetailer().equals("Sensi"))
 				  {
 					 hm.put(entry.getValue().getId(),entry.getValue());
 				  }
 				}
-				name = "Sonos";
+				name = "Sensi";
 			} 
-			else if (CategoryName.equals("JBL")) 
+			else if (CategoryName.equals("Lennox")) 
 			{
-				for(Map.Entry<String,Tablet> entry : alltablets.entrySet())
+				for(Map.Entry<String,Thermostat> entry : allThermostats.entrySet())
 				{
-				  if(entry.getValue().getRetailer().equals("JBL"))
+				  if(entry.getValue().getRetailer().equals("Lennox"))
 				 {
 					hm.put(entry.getValue().getId(),entry.getValue());
 				 }
 				}	
-				name = "JBL";
+				name = "Lennox";
 			}
 	    }
 
 		/* Header, Left Navigation Bar are Printed.
 
-		All the tablets and tablet information are dispalyed in the Content Section
+		All the tablets and thermostats information are dispalyed in the Content Section
 
 		and then Footer is Printed*/
 
@@ -88,33 +88,33 @@ public class TabletList extends HttpServlet {
 		utility.printHtml("Header.html");
 		utility.printHtml("LeftNavigationBar.html");
 		pw.print("<div id='content'><div class='post'><h2 class='title meta'>");
-		pw.print("<a style='font-size: 24px;'>" + name + " Tablets</a>");
+		pw.print("<a style='font-size: 24px;'>" + name + " thermostats</a>");
 		pw.print("</h2><div class='entry'><table id='bestseller'>");
 		int i = 1;
 		int size = hm.size();
-		for (Map.Entry<String, Tablet> entry : hm.entrySet()) {
-			Tablet Tablet = entry.getValue();
+		for (Map.Entry<String, Thermostat> entry : hm.entrySet()) {
+			Thermostat thermostat = entry.getValue();
 			if (i % 3 == 1)
 				pw.print("<tr>");
 			pw.print("<td><div id='shop_item'>");
-			pw.print("<h3>" + Tablet.getName() + "</h3>");
-			pw.print("<strong>" + Tablet.getPrice() + "$</strong><ul>");
-			pw.print("<li id='item'><img src='images/tablets/"
-					+ Tablet.getImage() + "' alt='' /></li>");
+			pw.print("<h3>" + thermostat.getName() + "</h3>");
+			pw.print("<strong>" + thermostat.getPrice() + "$</strong><ul>");
+			pw.print("<li id='item'><img src='images/thermostats/"
+					+ thermostat.getImage() + "' alt='' /></li>");
 			pw.print("<li><form method='post' action='Cart'>" +
 					"<input type='hidden' name='name' value='"+entry.getKey()+"'>"+
-					"<input type='hidden' name='type' value='tablets'>"+
+					"<input type='hidden' name='type' value='thermostat'>"+
 					"<input type='hidden' name='maker' value='"+CategoryName+"'>"+
 					"<input type='hidden' name='access' value=''>"+
 					"<input type='submit' class='btnbuy' value='Buy Now'></form></li>");
 			pw.print("<li><form method='post' action='WriteReview'>"+"<input type='hidden' name='name' value='"+entry.getKey()+"'>"+
-					"<input type='hidden' name='type' value='tablets'>"+
+					"<input type='hidden' name='type' value='thermostat'>"+
 					"<input type='hidden' name='maker' value='"+CategoryName+"'>"+
-					"<input type='hidden' name='price' value='"+Tablet.getPrice()+"'>"+
+					"<input type='hidden' name='price' value='"+thermostat.getPrice()+"'>"+
 					"<input type='hidden' name='access' value=''>"+
 				    "<input type='submit' value='WriteReview' class='btnreview'></form></li>");
 			pw.print("<li><form method='post' action='ViewReview'>"+"<input type='hidden' name='name' value='"+entry.getKey()+"'>"+
-					"<input type='hidden' name='type' value='tablets'>"+
+					"<input type='hidden' name='type' value='thermostat'>"+
 					"<input type='hidden' name='maker' value='"+CategoryName+"'>"+
 					"<input type='hidden' name='access' value=''>"+
 				    "<input type='submit' value='ViewReview' class='btnreview'></form></li>");

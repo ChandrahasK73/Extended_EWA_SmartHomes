@@ -5,13 +5,14 @@ public class MySqlDataStoreUtilities
 {
 	static Connection conn = null;
 	static String message;
+	public static HashMap<String,String> mapOfProds = new HashMap<String, String>();
 	public static String getConnection()
 	{
 
 		try
 		{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/exampledatabase","root","root");							
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/exampledatabase1","root","root");							
 			message="Successfull";
 			return message;
 		}
@@ -26,7 +27,45 @@ public class MySqlDataStoreUtilities
 			return message;
 		}
 	}
+	public static  void insertTransactions(String userId, String customerName, String userAddress, String creditCardNo, int orderId, String purchaseDate, String shipDate, 
+									String productId, String category, int quantity, double orderPrice, double shippingCost, double discount, double totalSales, String storeId, String storeAddress){
+								
+			
+			
+			try{
+				String insertTransactionQurey = "INSERT INTO  Transactions(userId, customerName, customerAddress, creditCardNo, orderId, purchaseDate, shipDate, productId, category, quantity, orderPrice, shippingCost, discount, totalSales, storeId, storeAddress)" +"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+			  
+				
+				
+				PreparedStatement pst = conn.prepareStatement(insertTransactionQurey);
+				pst.setString(1,userId);
+				pst.setString(2,customerName);
+				pst.setString(3,userAddress);
+				pst.setString(4,creditCardNo);
+				pst.setInt(5,orderId);
+				pst.setString(6,purchaseDate);
+				pst.setString(7,shipDate);
+				pst.setString(8,productId);
+				pst.setString(9,category);
+				pst.setDouble(10,quantity);
+				pst.setDouble(11,orderPrice);
+				pst.setDouble(12,shippingCost);
+				pst.setDouble(13,discount);
+				pst.setDouble(14,totalSales);
 
+				pst.setString(15,storeId);
+				pst.setString(16,storeAddress);
+
+				
+				pst.executeUpdate();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			
+				
+	}
 	public static void Insertproducts()
 	{
 		try{
@@ -42,6 +81,10 @@ public class MySqlDataStoreUtilities
 			String truncatetableprod = "delete from  Productdetails;";
 			PreparedStatement psttprod = conn.prepareStatement(truncatetableprod);
 			psttprod.executeUpdate();
+
+			String truncatetablestore = "delete from  Stores;";
+			PreparedStatement pststore = conn.prepareStatement(truncatetablestore);
+			pststore.executeUpdate();
 			
 			
 			
@@ -61,6 +104,7 @@ public class MySqlDataStoreUtilities
 				pst.setString(6,acc.getRetailer());
 				pst.setString(7,acc.getCondition());
 				pst.setDouble(8,acc.getDiscount());
+				mapOfProds.put(acc.getName(), name);
 				
 				pst.executeUpdate();
 				
@@ -83,6 +127,7 @@ public class MySqlDataStoreUtilities
 				pst.setString(6,con.getRetailer());
 				pst.setString(7,con.getCondition());
 				pst.setDouble(8,con.getDiscount());
+				mapOfProds.put(con.getName(), name);
 				
 				pst.executeUpdate();
 				try{
@@ -114,6 +159,7 @@ public class MySqlDataStoreUtilities
 				pst.setString(6,game.getRetailer());
 				pst.setString(7,game.getCondition());
 				pst.setDouble(8,game.getDiscount());
+				mapOfProds.put(game.getName(), name);
 				
 				pst.executeUpdate();
 				
@@ -133,6 +179,67 @@ public class MySqlDataStoreUtilities
 				pst.setString(6,tablet.getRetailer());
 				pst.setString(7,tablet.getCondition());
 				pst.setDouble(8,tablet.getDiscount());
+				mapOfProds.put(tablet.getName(), name);
+				
+				pst.executeUpdate();
+				
+				
+			}
+			for(Map.Entry<String,Thermostat> entry : SaxParserDataStore.thermostats.entrySet())
+			{   
+				String name = "thermostat";
+				Thermostat thermostat = entry.getValue();
+				
+				PreparedStatement pst = conn.prepareStatement(insertProductQurey);
+				pst.setString(1,name);
+				pst.setString(2,thermostat.getId());
+				pst.setString(3,thermostat.getName());
+				pst.setDouble(4,thermostat.getPrice());
+				pst.setString(5,thermostat.getImage());
+				pst.setString(6,thermostat.getRetailer());
+				pst.setString(7,thermostat.getCondition());
+				pst.setDouble(8,thermostat.getDiscount());
+				mapOfProds.put(thermostat.getName(), name);
+				
+				pst.executeUpdate();
+				
+				
+			}
+			for(Map.Entry<String,Lighting> entry : SaxParserDataStore.lightings.entrySet())
+			{   
+				String name = "lighting";
+				Lighting lighting = entry.getValue();
+				
+				PreparedStatement pst = conn.prepareStatement(insertProductQurey);
+				pst.setString(1,name);
+				pst.setString(2,lighting.getId());
+				pst.setString(3,lighting.getName());
+				pst.setDouble(4,lighting.getPrice());
+				pst.setString(5,lighting.getImage());
+				pst.setString(6,lighting.getRetailer());
+				pst.setString(7,lighting.getCondition());
+				pst.setDouble(8,lighting.getDiscount());
+				mapOfProds.put(lighting.getName(), name);
+				
+				pst.executeUpdate();
+				
+				
+			}
+
+			String insertStoresQuery = "INSERT INTO  Stores(storeId,name,street,city,state,zipCode)" +
+			"VALUES (?,?,?,?,?,?);";
+			for(Map.Entry<String,Store> entry : SaxParserDataStore.stores.entrySet())
+			{   
+				
+				Store store = entry.getValue();
+				
+				PreparedStatement pst = conn.prepareStatement(insertStoresQuery);
+				pst.setString(1,store.getId());
+				pst.setString(2,store.getName());
+				pst.setString(3,store.getStreet());
+				pst.setString(4,store.getCity());
+				pst.setString(5,store.getState());
+				pst.setString(6,store.getZipcode());
 				
 				pst.executeUpdate();
 				
@@ -159,7 +266,9 @@ public class MySqlDataStoreUtilities
 			
 			while(rs.next())
 				{	Console con = new Console(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"));
+				//System.out.println(rs.getString("productName")+"\n"+rs.getDouble("productPrice")+"\n"+rs.getString("productImage")+"\n"+rs.getString("productManufacturer")+"\n"+rs.getString("productCondition")+"\n"+rs.getDouble("productDiscount"));
 			hm.put(rs.getString("Id"), con);
+			//System.out.println(rs.getString("Id"));
 			con.setId(rs.getString("Id"));
 			
 			try
@@ -232,6 +341,54 @@ public static HashMap<String,Game> getGames()
 			{	Game game = new Game(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"));
 		hm.put(rs.getString("Id"), game);
 		game.setId(rs.getString("Id"));
+	}
+}
+catch(Exception e)
+{
+}
+return hm;			
+}
+
+public static HashMap<String,Thermostat> getThermostats()
+{	
+	HashMap<String,Thermostat> hm=new HashMap<String,Thermostat>();
+	try 
+	{
+		getConnection();
+		
+		String selectThermostat="select * from  Productdetails where ProductType=?";
+		PreparedStatement pst = conn.prepareStatement(selectThermostat);
+		pst.setString(1,"thermostat");
+		ResultSet rs = pst.executeQuery();
+		
+		while(rs.next())
+			{	Thermostat thermostat = new Thermostat(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"));
+		hm.put(rs.getString("Id"), thermostat);
+		thermostat.setId(rs.getString("Id"));
+	}
+}
+catch(Exception e)
+{
+}
+return hm;			
+}
+
+public static HashMap<String,Lighting> getLightings()
+{	
+	HashMap<String,Lighting> hm=new HashMap<String,Lighting>();
+	try 
+	{
+		getConnection();
+		
+		String selectLighting="select * from  Productdetails where ProductType=?";
+		PreparedStatement pst = conn.prepareStatement(selectLighting);
+		pst.setString(1,"lighting");
+		ResultSet rs = pst.executeQuery();
+		
+		while(rs.next())
+			{	Lighting lighting = new Lighting(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"));
+		hm.put(rs.getString("Id"), lighting);
+		lighting.setId(rs.getString("Id"));
 	}
 }
 catch(Exception e)
@@ -383,6 +540,24 @@ public static void deleteOrder(int orderId,String orderName)
 	{
 		
 	}
+}
+
+public static void deleteTransaction(int orderId,String orderName)
+{
+    try
+    {
+        
+        getConnection();
+        String deleteTransactionQuery ="Delete from Transactions where OrderId=? and productId=?";
+        PreparedStatement pst = conn.prepareStatement(deleteTransactionQuery);
+        pst.setInt(1,orderId);
+        pst.setString(2,orderName);
+        pst.executeUpdate();
+    }
+    catch(Exception e)
+    {
+        
+    }
 }
 
 public static void insertOrder(int orderId,String userName,String orderName,double orderPrice,String userAddress,String creditCardNo)

@@ -1,4 +1,19 @@
 
+/*********
+
+
+http://www.saxproject.org/
+
+SAX is the Simple API for XML, originally a Java-only API. 
+SAX was the first widely adopted API for XML in Java, and is a �de facto� standard. 
+The current version is SAX 2.0.1, and there are versions for several programming language environments other than Java. 
+
+The following URL from Oracle is the JAVA documentation for the API
+
+https://docs.oracle.com/javase/7/docs/api/org/xml/sax/helpers/DefaultHandler.html
+
+
+*********/
 import org.xml.sax.InputSource;
 
 import java.io.IOException;
@@ -28,12 +43,18 @@ You should extend DefaultHandler and override the method when parsin the XML doc
 public class SaxParserDataStore extends DefaultHandler {
     Console console;
     Game game;
+	Lighting lighting;
+	Thermostat thermostat;
     Tablet tablet;
     Accessory accessory;
+	Store store;
     static HashMap<String,Console> consoles;
     static HashMap<String,Game> games;
+	static HashMap<String,Lighting> lightings;
+	static HashMap<String,Thermostat> thermostats;
     static HashMap<String,Tablet> tablets;
     static HashMap<String,Accessory> accessories;
+	static HashMap<String, Store> stores;
     String consoleXmlFileName;
 	HashMap<String,String> accessoryHashMap;
     String elementValueRead;
@@ -45,11 +66,13 @@ public class SaxParserDataStore extends DefaultHandler {
     this.consoleXmlFileName = consoleXmlFileName;
     consoles = new HashMap<String, Console>();
 	games=new  HashMap<String, Game>();
+	lightings = new HashMap<String, Lighting>();
+	thermostats = new HashMap<String, Thermostat>();
 	tablets=new HashMap<String, Tablet>();
 	accessories=new HashMap<String, Accessory>();
+	stores=new HashMap<String, Store>();
 	accessoryHashMap=new HashMap<String,String>();
 	parseDocument();
-	
     }
 
    //parse the xml using sax parser to get the data
@@ -60,13 +83,12 @@ public class SaxParserDataStore extends DefaultHandler {
 		{
 	    SAXParser parser = factory.newSAXParser();
 	    parser.parse(consoleXmlFileName, this);
-		
         } catch (ParserConfigurationException e) {
             System.out.println("ParserConfig error");
         } catch (SAXException e) {
             System.out.println("SAXException : xml not well formed");
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("IO error");
         }
 	}
 
@@ -113,13 +135,30 @@ https://docs.oracle.com/javase/7/docs/api/org/xml/sax/helpers/DefaultHandler.htm
 			game= new Game();
             game.setId(attributes.getValue("id"));
         }
+		if (elementName.equalsIgnoreCase("lighting"))
+		{
+			currentElement="lighting";
+			lighting= new Lighting();
+            lighting.setId(attributes.getValue("id"));
+        }
+		if (elementName.equalsIgnoreCase("thermostat"))
+		{
+			currentElement="thermostat";
+			thermostat= new Thermostat();
+            thermostat.setId(attributes.getValue("id"));
+        }
         if (elementName.equals("accessory") &&  !currentElement.equals("console"))
 		{
 			currentElement="accessory";
 			accessory=new Accessory();
 			accessory.setId(attributes.getValue("id"));
 	    }
-
+		if (elementName.equalsIgnoreCase("store"))
+		{
+			currentElement="store";
+			store= new Store();
+            store.setId(attributes.getValue("id"));
+        }
 
     }
 	// when xml end element is parsed store the data into respective hashmap for console,games etc respectively
@@ -139,6 +178,14 @@ https://docs.oracle.com/javase/7/docs/api/org/xml/sax/helpers/DefaultHandler.htm
 			games.put(game.getId(),game);
 			return;
         }
+		if (element.equals("lighting")) {	  
+			lightings.put(lighting.getId(),lighting);
+			return;
+        }
+		if (element.equals("thermostat")) {	  
+			thermostats.put(thermostat.getId(),thermostat);
+			return;
+        }
         if (element.equals("accessory") && currentElement.equals("accessory")) {
 			accessories.put(accessory.getId(),accessory);       
 			return; 
@@ -152,11 +199,19 @@ https://docs.oracle.com/javase/7/docs/api/org/xml/sax/helpers/DefaultHandler.htm
 			accessoryHashMap=new HashMap<String,String>();
 			return;
 		}
+		if (element.equals("store")) {	  
+			stores.put(store.getId(),store);
+			return;
+        }
         if (element.equalsIgnoreCase("image")) {
 		    if(currentElement.equals("console"))
 				console.setImage(elementValueRead);
         	if(currentElement.equals("game"))
 				game.setImage(elementValueRead);
+			if(currentElement.equals("lighting"))
+				lighting.setImage(elementValueRead);
+			if(currentElement.equals("thermostat"))
+				thermostat.setImage(elementValueRead);
             if(currentElement.equals("tablet"))
 				tablet.setImage(elementValueRead);
             if(currentElement.equals("accessory"))
@@ -170,6 +225,10 @@ https://docs.oracle.com/javase/7/docs/api/org/xml/sax/helpers/DefaultHandler.htm
 				console.setDiscount(Double.parseDouble(elementValueRead));
         	if(currentElement.equals("game"))
 				game.setDiscount(Double.parseDouble(elementValueRead));
+			if(currentElement.equals("lighting"))
+				lighting.setDiscount(Double.parseDouble(elementValueRead));
+			if(currentElement.equals("thermostat"))
+				thermostat.setDiscount(Double.parseDouble(elementValueRead));
             if(currentElement.equals("tablet"))
 				tablet.setDiscount(Double.parseDouble(elementValueRead));
             if(currentElement.equals("accessory"))
@@ -183,6 +242,10 @@ https://docs.oracle.com/javase/7/docs/api/org/xml/sax/helpers/DefaultHandler.htm
 				console.setCondition(elementValueRead);
         	if(currentElement.equals("game"))
 				game.setCondition(elementValueRead);
+			if(currentElement.equals("lighting"))
+				lighting.setCondition(elementValueRead);
+			if(currentElement.equals("thermostat"))
+				thermostat.setCondition(elementValueRead);
             if(currentElement.equals("tablet"))
 				tablet.setCondition(elementValueRead);
             if(currentElement.equals("accessory"))
@@ -195,6 +258,10 @@ https://docs.oracle.com/javase/7/docs/api/org/xml/sax/helpers/DefaultHandler.htm
 				console.setRetailer(elementValueRead);
         	if(currentElement.equals("game"))
 				game.setRetailer(elementValueRead);
+			if(currentElement.equals("lighting"))
+				lighting.setRetailer(elementValueRead);
+			if(currentElement.equals("thermostat"))
+				thermostat.setRetailer(elementValueRead);
             if(currentElement.equals("tablet"))
 				tablet.setRetailer(elementValueRead);
             if(currentElement.equals("accessory"))
@@ -207,10 +274,16 @@ https://docs.oracle.com/javase/7/docs/api/org/xml/sax/helpers/DefaultHandler.htm
 				console.setName(elementValueRead);
         	if(currentElement.equals("game"))
 				game.setName(elementValueRead);
+			if(currentElement.equals("lighting"))
+				lighting.setName(elementValueRead);
+			if(currentElement.equals("thermostat"))
+				thermostat.setName(elementValueRead);
             if(currentElement.equals("tablet"))
 				tablet.setName(elementValueRead);
             if(currentElement.equals("accessory"))
-				accessory.setName(elementValueRead);          
+				accessory.setName(elementValueRead); 
+			if(currentElement.equals("store"))
+				store.setName(elementValueRead);         
 			return;
 	    }
 	
@@ -219,12 +292,75 @@ https://docs.oracle.com/javase/7/docs/api/org/xml/sax/helpers/DefaultHandler.htm
 				console.setPrice(Double.parseDouble(elementValueRead));
         	if(currentElement.equals("game"))
 				game.setPrice(Double.parseDouble(elementValueRead));
+			if(currentElement.equals("lighting"))
+				lighting.setPrice(Double.parseDouble(elementValueRead));
+			if(currentElement.equals("thermostat"))
+				thermostat.setPrice(Double.parseDouble(elementValueRead));
             if(currentElement.equals("tablet"))
 				tablet.setPrice(Double.parseDouble(elementValueRead));
             if(currentElement.equals("accessory"))
 				accessory.setPrice(Double.parseDouble(elementValueRead));          
 			return;
         }
+
+		if (element.equalsIgnoreCase("description")) {
+            if(currentElement.equals("console"))
+				console.setDescription(elementValueRead);
+        	if(currentElement.equals("game"))
+				game.setDescription(elementValueRead);
+			if(currentElement.equals("lighting"))
+				lighting.setDescription(elementValueRead);
+			if(currentElement.equals("thermostat"))
+				thermostat.setDescription(elementValueRead);
+            if(currentElement.equals("tablet"))
+				tablet.setDescription(elementValueRead);
+            if(currentElement.equals("accessory"))
+				accessory.setDescription(elementValueRead);          
+			return;
+	    }
+
+		if (element.equalsIgnoreCase("warranty")) {
+            if(currentElement.equals("console"))
+				console.setWarranty(elementValueRead);
+        	if(currentElement.equals("game"))
+				game.setWarranty(elementValueRead);
+			if(currentElement.equals("lighting"))
+				lighting.setWarranty(elementValueRead);
+			if(currentElement.equals("thermostat"))
+				thermostat.setWarranty(elementValueRead);
+            if(currentElement.equals("tablet"))
+				tablet.setWarranty(elementValueRead);
+            if(currentElement.equals("accessory"))
+				accessory.setWarranty(elementValueRead);          
+			return;
+	    }
+
+		if (element.equalsIgnoreCase("rebates")) {
+            if(currentElement.equals("console"))
+				console.setRebates(elementValueRead);
+        	if(currentElement.equals("game"))
+				game.setRebates(elementValueRead);
+			if(currentElement.equals("lighting"))
+				lighting.setRebates(elementValueRead);
+			if(currentElement.equals("thermostat"))
+				thermostat.setRebates(elementValueRead);
+            if(currentElement.equals("tablet"))
+				tablet.setRebates(elementValueRead);
+            if(currentElement.equals("accessory"))
+				accessory.setRebates(elementValueRead);          
+			return;
+	    }
+
+		if(currentElement.equals("store")){
+			if(element.equalsIgnoreCase("street"))
+				store.setStreet(elementValueRead);
+			if(element.equalsIgnoreCase("city"))
+				store.setCity(elementValueRead);
+			if(element.equalsIgnoreCase("state"))
+				store.setState(elementValueRead);
+			if(element.equalsIgnoreCase("zipcode"))
+				store.setZipcode(elementValueRead);
+		}
 
 	}
 	//get each element in xml tag
@@ -239,11 +375,8 @@ https://docs.oracle.com/javase/7/docs/api/org/xml/sax/helpers/DefaultHandler.htm
     ////////////////////////////////////////
 	
 //call the constructor to parse the xml and get product details
-        public static void addHashmap() {
+ public static void addHashmap() {
 		String TOMCAT_HOME = System.getProperty("catalina.home");	
-		new SaxParserDataStore(TOMCAT_HOME+"\\webapps\\Tutorial_3\\ProductCatalog.xml");
+		new SaxParserDataStore(TOMCAT_HOME+"\\webapps\\Extended_EWA_SmartHomes\\ProductCatalog.xml");
     } 
-	
-	
-	
 }

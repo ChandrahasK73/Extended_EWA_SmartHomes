@@ -24,7 +24,22 @@ public class Tablet extends HttpServlet{
 	private String retailer;
 	private String condition;
 	private double discount;
+	private String description;
+    private String warranty;
+    private String rebates;
 	
+	public Tablet(String name, double price, String image, String retailer, String condition,double discount,String description,String warranty,String rebates){
+		this.name=name;
+		this.price=price;
+		this.image=image;
+		this.condition=condition;
+		this.discount = discount;
+		this.retailer = retailer;
+		this.description = description;
+        this.warranty = warranty;
+        this.rebates = rebates;
+	}
+
 	public Tablet(String name, double price, String image, String retailer, String condition,double discount){
 		this.name=name;
 		this.price=price;
@@ -84,5 +99,29 @@ public class Tablet extends HttpServlet{
 
 	public void setDiscount(double discount) {
 		this.discount = discount;
+	}
+	
+    public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+    public String getWarranty() {
+		return warranty;
+	}
+
+	public void setWarranty(String warranty) {
+		this.warranty = warranty;
+	}
+
+    public String getRebates() {
+		return rebates;
+	}
+
+	public void setRebates(String rebates) {
+		this.rebates = rebates;
 	}
 }

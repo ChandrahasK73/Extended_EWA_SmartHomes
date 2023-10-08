@@ -32,17 +32,25 @@ public class SubmitReview extends HttpServlet {
 			response.sendRedirect("Login");
 			return;
 		}
-                String productname=request.getParameter("productname");		
+                
+				String productname=request.getParameter("productname");     
                 String producttype=request.getParameter("producttype");
-				String productprice=request.getParameter("productprice");
+                String productprice=request.getParameter("productprice");
                 String productmaker=request.getParameter("productmaker");
                 String reviewrating=request.getParameter("reviewrating");
                 String reviewdate=request.getParameter("reviewdate");
                 String reviewtext=request.getParameter("reviewtext");
-				String retailerpin=request.getParameter("zipcode");
-				String retailercity = request.getParameter("retailercity");
-		String message=utility.storeReview(productname,producttype,productmaker,reviewrating,reviewdate,reviewtext,retailerpin,productprice,retailercity);				     
-       		
+                String retailerpin=request.getParameter("zipcode");
+                String retailercity = request.getParameter("retailercity");
+                String retailerState = request.getParameter("retailerstate");
+                String storeId = request.getParameter("storeid");
+                String productrebates = request.getParameter("manufacturerrebate");
+                String userId = request.getParameter("username");
+                String userAge = request.getParameter("userage");
+                String userGender = request.getParameter("usergender");
+                String userOccupation = request.getParameter("useroccupation");
+                String productOnSale = request.getParameter("productonsale");
+        String message=utility.storeReview(productname,producttype,productprice,productmaker,productrebates,reviewrating,reviewdate,reviewtext,retailerpin,retailercity,retailerState,storeId,userId,userAge,userGender,userOccupation,productOnSale);       		
 		utility.printHtml("Header.html");
 		utility.printHtml("LeftNavigationBar.html");
 		pw.print("<form name ='Cart' action='CheckOut' method='post'>");
