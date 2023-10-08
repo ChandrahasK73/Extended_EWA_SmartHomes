@@ -56,7 +56,7 @@ public class ViewReview extends HttpServlet {
         String userGender="";
         String userOccupation="";
         String storeId="";
-        String retailercity="";
+        String retailerCity="";
         String retailerState="";
         String retailerZip="";
         String reviewRating="";
@@ -146,8 +146,8 @@ public class ViewReview extends HttpServlet {
                 pw.print("<tr>");
                 
                 pw.print("<td> Retailer City: </td>");
-                retailercity = r.getRetailerCity();
-                pw.print("<td>" +retailercity+ "</td>");
+                retailerCity = r.getRetailerCity();
+                pw.print("<td>" +retailerCity+ "</td>");
                 pw.print("</tr>");
                 pw.println("<tr>");
                 pw.print("<td> Retailer State: </td>");

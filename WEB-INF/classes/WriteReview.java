@@ -133,7 +133,7 @@ public class WriteReview extends HttpServlet {
 
 					pw.print("<tr>");
 					pw.print("<td> Store City: </td>");
-					pw.print("<td> <input type='text' name='retailercity'> </td>");
+					pw.print("<td> <input type='text' name='retailerCity'> </td>");
 			        pw.print("</tr>");	
 
 					pw.print("<tr>");
@@ -161,7 +161,7 @@ public class WriteReview extends HttpServlet {
 
 					pw.print("<tr>");
 					pw.print("<td> User Gender: </td>");
-					pw.print("<td> <input type='text' name='usergender'> </td>");
+					pw.print("<td> <select name='usergender'><option value='male' selected>Male</option><option value='female'>Female</option><option value='others'>Other</option> </td>");
 					pw.print("</tr>");
 
 					pw.print("<tr>");

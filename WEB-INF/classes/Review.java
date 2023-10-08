@@ -21,14 +21,14 @@ public class Review implements Serializable{
     private String userGender;
     private String userOccupation;
     private String storeId;
-    private String retailercity;
+    private String retailerCity;
     private String retailerState;
-    private String retailerpin;
+    private String retailerPin;
     private String reviewrating;
     private String reviewdate;
     private String reviewtext;
     
-    public Review (String productname,String producttype,String productprice, String productmaker, String productrebates, String productOnSale,String userId,String userAge,String userGender,String userOccupation,String storeId,String retailercity,String retailerState,String retailerpin, String reviewrating,String reviewdate,String reviewtext){
+    public Review (String productname,String producttype,String productprice, String productmaker, String productrebates, String productOnSale,String userId,String userAge,String userGender,String userOccupation,String storeId,String retailerCity,String retailerState,String retailerPin, String reviewrating,String reviewdate,String reviewtext){
         this.productname=productname;
         this.producttype=producttype;
         this.productprice=productprice;
@@ -40,17 +40,17 @@ public class Review implements Serializable{
         this.userGender= userGender;
         this.userOccupation=userOccupation;
         this.storeId= storeId;
-        this.retailercity= retailercity;
+        this.retailerCity= retailerCity;
         this.retailerState=retailerState;
-        this.retailerpin= retailerpin;
+        this.retailerPin= retailerPin;
         this.reviewrating= reviewrating;
         this.reviewdate= reviewdate;
         this.reviewtext= reviewtext;
     }
 
-    // public Review(String productName, String retailerpin, String reviewRating, String reviewText) {
+    // public Review(String productName, String retailerPin, String reviewRating, String reviewText) {
     //    this.productName = productName;
-    //    this.retailerpin = retailerpin;
+    //    this.retailerPin = retailerPin;
     //    this.reviewRating = reviewRating;
     //    this.reviewText = reviewText;
     // }
@@ -154,18 +154,18 @@ public class Review implements Serializable{
     }
     
     public String getRetailerPin() {
-        return retailerpin;
+        return retailerPin;
     }
 
-    public void setRetailerPin(String retailerpin) {
-        this.retailerpin = retailerpin;
+    public void setRetailerPin(String retailerPin) {
+        this.retailerPin = retailerPin;
     }
     public String getRetailerCity() {
-        return retailercity;
+        return retailerCity;
     }
 
-    public void setRetailerCity(String retailercity) {
-        this.retailercity = retailercity;
+    public void setRetailerCity(String retailerCity) {
+        this.retailerCity = retailerCity;
     }
     public String getRetailerState() {
         return retailerState;

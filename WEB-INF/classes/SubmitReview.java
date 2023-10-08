@@ -40,8 +40,8 @@ public class SubmitReview extends HttpServlet {
                 String reviewrating=request.getParameter("reviewrating");
                 String reviewdate=request.getParameter("reviewdate");
                 String reviewtext=request.getParameter("reviewtext");
-                String retailerpin=request.getParameter("zipcode");
-                String retailercity = request.getParameter("retailercity");
+                String retailerPin=request.getParameter("zipcode");
+                String retailerCity = request.getParameter("retailerCity");
                 String retailerState = request.getParameter("retailerstate");
                 String storeId = request.getParameter("storeid");
                 String productrebates = request.getParameter("manufacturerrebate");
@@ -50,7 +50,7 @@ public class SubmitReview extends HttpServlet {
                 String userGender = request.getParameter("usergender");
                 String userOccupation = request.getParameter("useroccupation");
                 String productOnSale = request.getParameter("productonsale");
-        String message=utility.storeReview(productname,producttype,productprice,productmaker,productrebates,reviewrating,reviewdate,reviewtext,retailerpin,retailercity,retailerState,storeId,userId,userAge,userGender,userOccupation,productOnSale);       		
+        String message=utility.storeReview(productname,producttype,productprice,productmaker,productrebates,reviewrating,reviewdate,reviewtext,retailerPin,retailerCity,retailerState,storeId,userId,userAge,userGender,userOccupation,productOnSale);       		
 		utility.printHtml("Header.html");
 		utility.printHtml("LeftNavigationBar.html");
 		pw.print("<form name ='Cart' action='CheckOut' method='post'>");

@@ -113,6 +113,11 @@ public class CheckOut extends HttpServlet {
 		pw.print("<td><input type='text' name='userAddress'>");
         pw.print("</td></tr>");
 		pw.print("<tr><td>");
+		pw.print("<tr><td>");
+	    pw.print("City</td>");
+		pw.print("<td><input type='text' name='city'>");
+        pw.print("</td></tr>");
+		pw.print("<tr><td>");
 	    pw.print("State</td>");
 		pw.print("<td><input type='text' name='state'>");
         pw.print("</td></tr>");
