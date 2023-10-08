@@ -88,8 +88,8 @@ public class MySqlDataStoreUtilities
 			
 			
 			
-			String insertProductQurey = "INSERT INTO  Productdetails(ProductType,Id,productName,productPrice,productImage,productManufacturer,productCondition,productDiscount)" +
-			"VALUES (?,?,?,?,?,?,?,?);";
+			String insertProductQurey = "INSERT INTO  Productdetails(ProductType,Id,productName,productPrice,productImage,productManufacturer,productCondition,productDiscount,productDescription,productWarranty,productRebates)" +
+			"VALUES (?,?,?,?,?,?,?,?,?,?,?);";
 			for(Map.Entry<String,Accessory> entry : SaxParserDataStore.accessories.entrySet())
 			{   
 				String name = "accessories";
@@ -104,6 +104,9 @@ public class MySqlDataStoreUtilities
 				pst.setString(6,acc.getRetailer());
 				pst.setString(7,acc.getCondition());
 				pst.setDouble(8,acc.getDiscount());
+				pst.setString(9,acc.getDescription());
+				pst.setString(10,acc.getWarranty());
+				pst.setString(11,acc.getRebates());
 				mapOfProds.put(acc.getName(), name);
 				
 				pst.executeUpdate();
@@ -127,6 +130,9 @@ public class MySqlDataStoreUtilities
 				pst.setString(6,con.getRetailer());
 				pst.setString(7,con.getCondition());
 				pst.setDouble(8,con.getDiscount());
+				pst.setString(9,con.getDescription());
+				pst.setString(10,con.getWarranty());
+				pst.setString(11,con.getRebates());
 				mapOfProds.put(con.getName(), name);
 				
 				pst.executeUpdate();
@@ -159,6 +165,9 @@ public class MySqlDataStoreUtilities
 				pst.setString(6,game.getRetailer());
 				pst.setString(7,game.getCondition());
 				pst.setDouble(8,game.getDiscount());
+				pst.setString(9,game.getDescription());
+				pst.setString(10,game.getWarranty());
+				pst.setString(11,game.getRebates());
 				mapOfProds.put(game.getName(), name);
 				
 				pst.executeUpdate();
@@ -179,6 +188,9 @@ public class MySqlDataStoreUtilities
 				pst.setString(6,tablet.getRetailer());
 				pst.setString(7,tablet.getCondition());
 				pst.setDouble(8,tablet.getDiscount());
+				pst.setString(9,tablet.getDescription());
+				pst.setString(10,tablet.getWarranty());
+				pst.setString(11,tablet.getRebates());
 				mapOfProds.put(tablet.getName(), name);
 				
 				pst.executeUpdate();
@@ -199,6 +211,9 @@ public class MySqlDataStoreUtilities
 				pst.setString(6,thermostat.getRetailer());
 				pst.setString(7,thermostat.getCondition());
 				pst.setDouble(8,thermostat.getDiscount());
+				pst.setString(9,thermostat.getDescription());
+				pst.setString(10,thermostat.getWarranty());
+				pst.setString(11,thermostat.getRebates());
 				mapOfProds.put(thermostat.getName(), name);
 				
 				pst.executeUpdate();
@@ -219,6 +234,9 @@ public class MySqlDataStoreUtilities
 				pst.setString(6,lighting.getRetailer());
 				pst.setString(7,lighting.getCondition());
 				pst.setDouble(8,lighting.getDiscount());
+				pst.setString(9,lighting.getDescription());
+				pst.setString(10,lighting.getWarranty());
+				pst.setString(11,lighting.getRebates());
 				mapOfProds.put(lighting.getName(), name);
 				
 				pst.executeUpdate();
@@ -265,7 +283,7 @@ public class MySqlDataStoreUtilities
 			ResultSet rs = pst.executeQuery();
 			
 			while(rs.next())
-				{	Console con = new Console(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"));
+				{	Console con = new Console(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"),rs.getString("productDescription"),rs.getString("productWarranty"),rs.getString("productRebates"));
 				//System.out.println(rs.getString("productName")+"\n"+rs.getDouble("productPrice")+"\n"+rs.getString("productImage")+"\n"+rs.getString("productManufacturer")+"\n"+rs.getString("productCondition")+"\n"+rs.getDouble("productDiscount"));
 			hm.put(rs.getString("Id"), con);
 			//System.out.println(rs.getString("Id"));
@@ -313,7 +331,7 @@ public static HashMap<String,Tablet> getTablets()
 		ResultSet rs = pst.executeQuery();
 		
 		while(rs.next())
-			{	Tablet tab = new Tablet(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"));
+			{	Tablet tab = new Tablet(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"),rs.getString("productDescription"),rs.getString("productWarranty"),rs.getString("productRebates"));
 		hm.put(rs.getString("Id"), tab);
 		tab.setId(rs.getString("Id"));
 
@@ -338,7 +356,7 @@ public static HashMap<String,Game> getGames()
 		ResultSet rs = pst.executeQuery();
 		
 		while(rs.next())
-			{	Game game = new Game(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"));
+			{	Game game = new Game(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"),rs.getString("productDescription"),rs.getString("productWarranty"),rs.getString("productRebates"));
 		hm.put(rs.getString("Id"), game);
 		game.setId(rs.getString("Id"));
 	}
@@ -362,7 +380,7 @@ public static HashMap<String,Thermostat> getThermostats()
 		ResultSet rs = pst.executeQuery();
 		
 		while(rs.next())
-			{	Thermostat thermostat = new Thermostat(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"));
+			{	Thermostat thermostat = new Thermostat(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"),rs.getString("productDescription"),rs.getString("productWarranty"),rs.getString("productRebates"));
 		hm.put(rs.getString("Id"), thermostat);
 		thermostat.setId(rs.getString("Id"));
 	}
@@ -386,7 +404,7 @@ public static HashMap<String,Lighting> getLightings()
 		ResultSet rs = pst.executeQuery();
 		
 		while(rs.next())
-			{	Lighting lighting = new Lighting(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"));
+			{	Lighting lighting = new Lighting(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"),rs.getString("productDescription"),rs.getString("productWarranty"),rs.getString("productRebates"));
 		hm.put(rs.getString("Id"), lighting);
 		lighting.setId(rs.getString("Id"));
 	}
@@ -410,26 +428,26 @@ public static HashMap<String,Accessory> getAccessories()
 		ResultSet rs = pst.executeQuery();
 		
 		while(rs.next())
-			{	Accessory acc = new Accessory(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"));
+			{	Accessory acc = new Accessory(rs.getString("productName"),rs.getDouble("productPrice"),rs.getString("productImage"),rs.getString("productManufacturer"),rs.getString("productCondition"),rs.getDouble("productDiscount"),rs.getString("productDescription"),rs.getString("productWarranty"),rs.getString("productRebates"));
 		hm.put(rs.getString("Id"), acc);
 		acc.setId(rs.getString("Id"));
 
+		}
 	}
-}
 catch(Exception e)
 {
 }
 return hm;			
 }
 
-public static String addproducts(String producttype,String productId,String productName,double productPrice,String productImage,String productManufacturer,String productCondition,double productDiscount,String prod)
+public static String addproducts(String producttype,String productId,String productName,double productPrice,String productImage,String productManufacturer,String productCondition,double productDiscount,String prod,String productDescription,String productWarranty,String productRebates)
 {
 	String msg = "Product is added successfully";
 	try{
 		
 		getConnection();
-		String addProductQurey = "INSERT INTO  Productdetails(ProductType,Id,productName,productPrice,productImage,productManufacturer,productCondition,productDiscount)" +
-		"VALUES (?,?,?,?,?,?,?,?);";
+		String addProductQurey = "INSERT INTO  Productdetails(ProductType,Id,productName,productPrice,productImage,productManufacturer,productCondition,productDiscount,productDescription,productWarranty,productRebates)" +
+		"VALUES (?,?,?,?,?,?,?,?,?,?,?);";
 		
 		String name = producttype;
 		
@@ -442,6 +460,9 @@ public static String addproducts(String producttype,String productId,String prod
 		pst.setString(6,productManufacturer);
 		pst.setString(7,productCondition);
 		pst.setDouble(8,productDiscount);
+		pst.setString(9,productDescription);
+		pst.setString(10,productWarranty);
+		pst.setString(11,productRebates);
 		
 		pst.executeUpdate();
 		try{

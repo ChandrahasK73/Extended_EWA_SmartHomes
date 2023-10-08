@@ -19,11 +19,13 @@ public class ProductCrud extends HttpServlet {
 			String action = request.getParameter("button");
 			
 			String msg = "good";
-			String producttype= "",productId="",productName="",productImage="",productManufacturer="",productCondition="",prod = "";
+			String producttype= "",productId="",productName="",productImage="",productManufacturer="",productCondition="",prod = "",productDescription="",productWarranty="",productRebates="";
 			double productPrice=0.0,productDiscount = 0.0;
 			HashMap<String,Console> allconsoles = new HashMap<String,Console> ();
 			HashMap<String,Tablet> alltablets = new HashMap<String,Tablet> ();
 			HashMap<String,Game> allgames = new HashMap<String,Game> ();
+			HashMap<String,Lighting> alllightings = new HashMap<String,Lighting> ();
+			HashMap<String,Thermostat> allthermostats = new HashMap<String,Thermostat> ();
 			HashMap<String,Accessory> allaccessories=new HashMap<String,Accessory>();
 			if (action.equals("add") || action.equals("update"))
 			{	
@@ -35,6 +37,9 @@ public class ProductCrud extends HttpServlet {
 				 productManufacturer = request.getParameter("productManufacturer");
 				 productCondition = request.getParameter("productCondition");
 				 productDiscount = Double.parseDouble(request.getParameter("productDiscount"));
+				 productDescription = request.getParameter("productDescription");
+				 productWarranty= request.getParameter("productWarranty");
+				 productRebates = request.getParameter("productRebates");
 				 
 			}
 			else{
@@ -64,6 +69,18 @@ public class ProductCrud extends HttpServlet {
 				  if(alltablets.containsKey(productId)){
 					  msg = "Product already available";
 				  }
+			  }else if (producttype.equals("lighting"))
+			  {
+				  alllightings = MySqlDataStoreUtilities.getLightings();
+				  if(alllightings.containsKey(productId)){
+					  msg = "Product already available";
+				  }
+			  }else if (producttype.equals("thermostat"))
+			  {
+				  allthermostats = MySqlDataStoreUtilities.getThermostats();
+				  if(allthermostats.containsKey(productId)){
+					  msg = "Product already available";
+				  }
 			  }else if (producttype.equals("accessories"))
 			  {  
 					if(!request.getParameter("product").isEmpty())
@@ -90,7 +107,7 @@ public class ProductCrud extends HttpServlet {
 			  {  
 				  try
 				  {
-					  msg = MySqlDataStoreUtilities.addproducts(producttype,productId,productName,productPrice,productImage,productManufacturer,productCondition,productDiscount,prod);
+					  msg = MySqlDataStoreUtilities.addproducts(producttype,productId,productName,productPrice,productImage,productManufacturer,productCondition,productDiscount,prod,productDescription,productWarranty,productRebates);
 				  }
 				  catch(Exception e)
 				  { 
@@ -117,6 +134,18 @@ public class ProductCrud extends HttpServlet {
 			  {
 				  alltablets = MySqlDataStoreUtilities.getTablets();
 				  if(!alltablets.containsKey(productId)){
+					  msg = "Product not available";
+				  }
+			  }else if(producttype.equals("lighting"))
+			  {
+				  alllightings = MySqlDataStoreUtilities.getLightings();
+				  if(!alllightings.containsKey(productId)){
+					  msg = "Product not available";
+				  }
+			  }else if(producttype.equals("thermostat"))
+			  {
+				  allthermostats = MySqlDataStoreUtilities.getThermostats();
+				  if(!allthermostats.containsKey(productId)){
 					  msg = "Product not available";
 				  }
 			  }else if (producttype.equals("accessories"))
@@ -156,6 +185,16 @@ public class ProductCrud extends HttpServlet {
 			  
 				  alltablets = MySqlDataStoreUtilities.getTablets();
 				  if(alltablets.containsKey(productId)){
+					  msg = "good";
+				  }
+
+				  alllightings = MySqlDataStoreUtilities.getLightings();
+				  if(alllightings.containsKey(productId)){
+					  msg = "good";
+				  }
+
+				  allthermostats = MySqlDataStoreUtilities.getThermostats();
+				  if(allthermostats.containsKey(productId)){
 					  msg = "good";
 				  }
 			  

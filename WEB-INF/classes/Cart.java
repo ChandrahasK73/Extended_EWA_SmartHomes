@@ -53,6 +53,7 @@ public class Cart extends HttpServlet {
 		pw.print("<div id='content'><div class='post'><h2 class='title meta'>");
 		pw.print("<a style='font-size: 24px;'>Cart("+utility.CartCount()+")</a>");
 		pw.print("</h2><div class='entry'>");
+
 		pw.print("<form name ='Cart' action='CheckOut' method='post'>");
 		if(utility.CartCount()>0)
 		{

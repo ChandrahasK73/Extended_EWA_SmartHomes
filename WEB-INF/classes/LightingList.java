@@ -100,6 +100,9 @@ public class LightingList extends HttpServlet {
 			pw.print("<td><div id='shop_item'>");
 			pw.print("<h3>"+lighting.getName()+"</h3>");
 			pw.print("<strong>"+ "$" + lighting.getPrice() + "</strong><ul>");
+			pw.print("<strong>"+ "description: " + lighting.getDescription() + "</strong><ul>");
+            pw.print("<strong>"+ "You get a " + lighting.getWarranty() + "</strong><ul>");
+            pw.print("<strong>"+ "" + lighting.getRebates() + "</strong><ul>");
 			pw.print("<li id='item'><img src='images/lightings/"+lighting.getImage()+"' alt='' /></li>");
 			pw.print("<li><form method='post' action='Cart'>" +
 					"<input type='hidden' name='name' value='"+entry.getKey()+"'>"+

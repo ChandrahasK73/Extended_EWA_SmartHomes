@@ -48,6 +48,12 @@ public class ProductModify extends HttpServlet {
 					+ "</td></tr><tr><td>"
 					+ "<h3>Product Discount</h3></td><td><input type='number' step='any' placeholder='please enter numeric data' name='productDiscount' value='' class='input' required></input>"
 					+ "</td></tr><tr><td>"
+					+ "<h3>Product Description</h3></td><td><input type='textarea' name='productDescription' value='' class='input' required></input>"
+					+ "</td></tr><tr><td>"
+					+ "<h3>Product Warranty</h3></td><td><input type='text' name='productWarranty' value='' class='input' required></input>"
+					+ "</td></tr><tr><td>"
+					+ "<h3>Product Rebates</h3></td><td><input type='text' name='productRebates' value='' class='input' required></input>"
+					+ "</td></tr><tr><td>"
 					+ "<input type='submit' class='btnbuy' name='button' value='add' style='float: right;height: 20px margin: 20px; margin-right: 10px;'></input>"
 					+ "</td></tr><tr><td></td><td>"
 					
