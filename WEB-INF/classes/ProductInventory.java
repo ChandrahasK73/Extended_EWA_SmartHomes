@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductInventory {
-    private static final String JSON_FILE_PATH = "C:\\apache-tomcat-9.0.52\\webapps\\Extended_EWA_SmartHomes\\WEB-INF\\classes\\productInventory.json";
-    private static final String JSON_SALE_PATH = "C:\\apache-tomcat-9.0.52\\webapps\\Extended_EWA_SmartHomes\\WEB-INF\\classes\\totalSales.json";
+    private static final String JSON_FILE_PATH = "C:\\apache-tomcat-9.0.52\\webapps\\Extended_EWA_SmartHomes\\js\\productInventory.json";
+    private static final String JSON_SALE_PATH = "C:\\apache-tomcat-9.0.52\\webapps\\Extended_EWA_SmartHomes\\js\\totalSales.json";
 
     public static List<ProductCount> loadInventory() throws IOException {
         List<ProductCount> products = new ArrayList<>();

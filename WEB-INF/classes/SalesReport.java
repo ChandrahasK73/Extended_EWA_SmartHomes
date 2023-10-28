@@ -29,8 +29,8 @@ import java.util.List;
 public class SalesReport extends HttpServlet {
 
     static DBCollection myReviews;
-    private static final String JSON_FILE_PATH = "C:\\apache-tomcat-9.0.52\\webapps\\Extended_EWA_SmartHomes\\WEB-INF\\classes\\productInventory.json";
-    private static final String JSON_SALE_PATH = "C:\\apache-tomcat-9.0.52\\webapps\\Extended_EWA_SmartHomes\\WEB-INF\\classes\\totalSales.json";
+    private static final String JSON_FILE_PATH = "C:\\apache-tomcat-9.0.52\\webapps\\Extended_EWA_SmartHomes\\js\\productInventory.json";
+    private static final String JSON_SALE_PATH = "C:\\apache-tomcat-9.0.52\\webapps\\Extended_EWA_SmartHomes\\js\\totalSales.json";
 
 
     @Override

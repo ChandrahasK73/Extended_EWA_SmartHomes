@@ -29,8 +29,8 @@ import java.util.List;
 public class Inventory extends HttpServlet {
 
     static DBCollection myReviews;
-    private static final String JSON_FILE_PATH = "C:\\apache-tomcat-9.0.52\\webapps\\Extended_EWA_SmartHomes\\WEB-INF\\classes\\productInventory.json";
-    private static final String JSON_SALE_PATH = "C:\\apache-tomcat-9.0.52\\webapps\\Extended_EWA_SmartHomes\\WEB-INF\\classes\\totalSales.json";
+    private static final String JSON_FILE_PATH = "C:\\apache-tomcat-9.0.52\\webapps\\Extended_EWA_SmartHomes\\js\\productInventory.json";
+    private static final String JSON_SALE_PATH = "C:\\apache-tomcat-9.0.52\\webapps\\Extended_EWA_SmartHomes\\js\\totalSales.json";
 
 
     @Override
@@ -128,11 +128,11 @@ public class Inventory extends HttpServlet {
             }
         }
         pw.print("</table><br>"); 
-        pw.print("<h3><button id='btnGetChartData'>View Chart</h3>");
-        pw.println("<div id='chart_div'></div>");
+        pw.print("<h3><button id='btnGetViewChartData'>View Chart</h3>");
+        pw.println("<div id='chart_division'></div>");
         pw.println("</div></div></div>");
         pw.println("<script type='text/javascript' src=\"https://www.gstatic.com/charts/loader.js\"></script>");
-        pw.println("<script type='text/javascript' src='Data.js'></script>");
+        pw.println("<script type='text/javascript' src='js/SalesData-1.js'></script>");
         utility.printHtml("Footer.html");
 
     }
