@@ -1,0 +1,283 @@
+{
+    "products": [
+        {
+            "name": "Ring Video Doorbell",
+            "price": 399.99,
+            "quantity": 99,
+            "totalSold": 1,
+            "totalSales": 399.99,
+            "manufacturerRebate": "Yes",
+            "onSale": "Yes"
+        },
+        {
+            "name": "Ring Battery Doorbell Plus",
+            "price": 399.99,
+            "quantity": 98,
+            "totalSold": 2,
+            "totalSales": 799.98,
+            "manufacturerRebate": "Yes",
+            "onSale": "Yes"
+        },
+        {
+            "name": "Nest Doorbell Corner",
+            "price": 349.99,
+            "quantity": 99,
+            "totalSold": 1,
+            "totalSales": 349.99,
+            "manufacturerRebate": "Yes",
+            "onSale": "Yes"
+        },
+        {
+            "name": "Google Nest Doorbell",
+            "price": 349.99,
+            "quantity": 99,
+            "totalSold": 1,
+            "totalSales": 349.99,
+            "manufacturerRebate": "Yes",
+            "onSale": "No"
+        },
+        {
+            "name": "Arlo Essential Video Doorbell",
+            "price": 249.99,
+            "quantity": 99,
+            "totalSold": 1,
+            "totalSales": 249.99,
+            "manufacturerRebate": "Yes",
+            "onSale": "Yes"
+        },
+        {
+            "name": "Bose SoundLink",
+            "price": 189.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "Yes"
+        },
+        {
+            "name": "Bose Smart",
+            "price": 189.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "No"
+        },
+        {
+            "name": "Sonos Move",
+            "price": 299.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "No"
+        },
+        {
+            "name": "Sonos Two",
+            "price": 299.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "Yes"
+        },
+        {
+            "name": "JBL CHARGE",
+            "price": 150.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "No"
+        },
+        {
+            "name": "Schlage BE365",
+            "price": 50.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "Yes"
+        },
+        {
+            "name": "SCHLAGE FE595",
+            "price": 50.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "Yes"
+        },
+        {
+            "name": "Kwikset SmartCode",
+            "price": 50.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "No"
+        },
+        {
+            "name": "Kwikset Code jim",
+            "price": 52.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "No"
+        },
+        {
+            "name": "Yale Security",
+            "price": 50.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "No"
+        },
+        {
+            "name": "Philips Hue 2-Pack",
+            "price": 50.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "No"
+        },
+        {
+            "name": "Philips Hue 40W",
+            "price": 50.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "Yes"
+        },
+        {
+            "name": "GE Lighting CYNC",
+            "price": 50.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "No"
+        },
+        {
+            "name": "GE CYNC Smart",
+            "price": 50.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "Yes"
+        },
+        {
+            "name": "OSRAM 73742",
+            "price": 50.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "Yes"
+        },
+        {
+            "name": "Trane XL824",
+            "price": 50.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "No"
+        },
+        {
+            "name": "Trane XR724",
+            "price": 50.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "No"
+        },
+        {
+            "name": "Sensi Touch",
+            "price": 50.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "No"
+        },
+        {
+            "name": "Sensi Touch 2",
+            "price": 50.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "No"
+        },
+        {
+            "name": "Lennox 13H14",
+            "price": 50.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "Yes"
+        },
+        {
+            "name": "Spare Parts for Ring Video Doorbell",
+            "price": 9.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "No"
+        },
+        {
+            "name": "Ring wire spare",
+            "price": 9.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "No"
+        },
+        {
+            "name": "Adjustable Mount",
+            "price": 9.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "No"
+        },
+        {
+            "name": "elago Wall Plate",
+            "price": 9.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "No"
+        },
+        {
+            "name": "Vinyl Siding Angle",
+            "price": 9.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "No"
+        },
+        {
+            "name": "Doorbell Pin",
+            "price": 9.99,
+            "quantity": 100,
+            "totalSold": 0,
+            "totalSales": 0.0,
+            "manufacturerRebate": "Yes",
+            "onSale": "No"
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "sales": [
+        {
+            "date": "",
+            "totalSales": 0.0
+        },
+        {
+            "date": "2023-10-26",
+            "totalSales": 799.98
+        },
+        {
+            "date": "2023-10-27",
+            "totalSales": 349.99
+        }
+    ]
+}
