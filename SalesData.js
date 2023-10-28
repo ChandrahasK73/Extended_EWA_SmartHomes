@@ -20,24 +20,24 @@ google.charts.setOnLoadCallback(drawBarChart);
 
 function drawBarChart() {
   // Replace 'data.json' with the path to your JSON file containing the product data.
-  fetch('js/productInventory.json')
+  fetch('WEB-INF\\classes\\productInventory.json')
     .then((response) => response.json())
     .then((jsonData) => {
       const data = new google.visualization.DataTable();
-      console.log
+      
       // Add columns for the chart
       data.addColumn('string', 'Product');
-      data.addColumn('number', 'Total Sales');
+      data.addColumn('number', 'Available Quantity');
 
       // Populate the data from the JSON file
       jsonData.products.forEach((product) => {
-        data.addRow([product.name, product.totalSales]);
+        data.addRow([product.name, product.quantity]);
       });
       console.log(data);
       const options = {
-        title: 'Total Sales',
+        title: 'Product Availability',
         width: 600,
-        height: 800,
+        height: 400,
       };
 
       const chart = new google.visualization.BarChart(document.getElementById('chart_division'));

@@ -30,9 +30,9 @@
         {
             "name": "Google Nest Doorbell",
             "price": 349.99,
-            "quantity": 99,
-            "totalSold": 1,
-            "totalSales": 349.99,
+            "quantity": 98,
+            "totalSold": 2,
+            "totalSales": 699.98,
             "manufacturerRebate": "Yes",
             "onSale": "No"
         },
@@ -93,9 +93,9 @@
         {
             "name": "Schlage BE365",
             "price": 50.99,
-            "quantity": 100,
-            "totalSold": 0,
-            "totalSales": 0.0,
+            "quantity": 99,
+            "totalSold": 1,
+            "totalSales": 50.99,
             "manufacturerRebate": "Yes",
             "onSale": "Yes"
         },

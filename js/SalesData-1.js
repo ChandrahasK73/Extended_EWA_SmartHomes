@@ -24,18 +24,18 @@ function drawBarChart() {
     .then((response) => response.json())
     .then((jsonData) => {
       const data = new google.visualization.DataTable();
-      console.log
+      
       // Add columns for the chart
       data.addColumn('string', 'Product');
-      data.addColumn('number', 'Total Sales');
+      data.addColumn('number', 'Available Quantity');
 
       // Populate the data from the JSON file
       jsonData.products.forEach((product) => {
-        data.addRow([product.name, product.totalSales]);
+        data.addRow([product.name, product.quantity]);
       });
       console.log(data);
       const options = {
-        title: 'Total Sales',
+        title: 'Product Availability',
         width: 600,
         height: 800,
       };
