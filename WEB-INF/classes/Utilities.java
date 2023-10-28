@@ -3,7 +3,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
@@ -16,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @WebServlet("/Utilities")
 
@@ -31,6 +34,7 @@ public class Utilities extends HttpServlet{
 	PrintWriter pw;
 	String url;
 	HttpSession session; 
+	public HashMap<String, Integer> noOfItemsSold; 
 	public Utilities(HttpServletRequest req, PrintWriter pw) {
 		this.req = req;
 		this.pw = pw;
@@ -59,6 +63,8 @@ public class Utilities extends HttpServlet{
 						+"<li><a href='ProductModify?button=Deleteproduct'><span class='glyphicon'>Deleteproduct</span></a></li>"
 						//+"<li><a href='DataVisualization'><span class='glyphicon'>Trending</span></a></li>"
 						+"<li><a href='DataAnalytics'><span class='glyphicon'>DataAnalytics</span></a></li>"
+						+"<li><a href='SalesReport'><span class='glyphicon'>SalesReport</span></a></li>"
+						+"<li><a href='Inventory'><span class='glyphicon'>Inventory</span></a></li>"
 						+ "<li><a><span class='glyphicon'>Hello,"+username+"</span></a></li>"
 						+ "<li><a href='Logout'><span class='glyphicon'>Logout</span></a></li>";
 				}
@@ -216,11 +222,48 @@ public class Utilities extends HttpServlet{
 	
 	/* StoreProduct Function stores the Purchased product in Orders HashMap according to the User Names.*/
 
-	public void storeProduct(String name,String type,String maker, String acc){
+	public void storeProduct(String name,String type,String maker, String acc)throws IOException{
 		if(!OrdersHashMap.orders.containsKey(username())){	
 			ArrayList<OrderItem> arr = new ArrayList<OrderItem>();
 			OrdersHashMap.orders.put(username(), arr);
 		}
+		/* Update the inventory */
+		List<ProductCount> products = ProductInventory.loadInventory();
+		List<SalesCount> sales = ProductInventory.loadSales();
+		double totSales = 0.0;
+		Calendar calendar = Calendar.getInstance();
+		Date currentDate = calendar.getTime();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String currentDates = dateFormat.format(currentDate);
+
+        for (ProductCount product : products) {
+            if (product.getName().equals(name) && product.getQuantity() > 0) {
+                product.setQuantity(product.getQuantity() - 1);
+                product.setTotalSold(product.getTotalSold() + 1);
+                product.setTotalSales(product.getTotalSales() + product.getPrice());
+				totSales += product.getPrice();
+            }
+        }
+
+        ProductInventory.saveInventory(products);
+		boolean dateExists = false;
+		for(SalesCount sale: sales){
+			if(sale.getDate().equals(currentDates)){
+				sale.setTotalSales(sale.getTotalSales()+totSales);
+				System.out.println("Both dates are equal");
+				dateExists = true;
+				break;
+			}
+		}
+		if(!dateExists){
+			SalesCount newSale = new SalesCount(currentDates, totSales);
+			System.out.println("Both dates are not equal");
+			sales.add(newSale);
+		}
+		
+				
+		ProductInventory.saveSales(sales);
+
 		ArrayList<OrderItem> orderItems = OrdersHashMap.orders.get(username());
 		HashMap<String,Console> allconsoles = new HashMap<String,Console> ();
 			HashMap<String,Tablet> alltablets = new HashMap<String,Tablet> ();
